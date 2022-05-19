@@ -6,7 +6,6 @@ public interface IHamsterService
 {
     List<Hamster> Hamsters { get; set; }
     Task<Hamster> CreateNewHamster(Hamster hamster);
-    Task<Hamster> GetHamsterDetails(int id);
     Task UpdateHamster(Hamster hamster);    
     Task DeleteHamster(int id);
     Task GetHamsters();

@@ -40,15 +40,6 @@ public class HamsterService : IHamsterService
     }
 
 
-
-    public async Task<Hamster> GetHamsterDetails(int id)
-    {
-        return await JsonSerializer.DeserializeAsync<Hamster>(await _http.GetStreamAsync( $"api/Hamsters/{id}"), new JsonSerializerOptions()
-        {
-            PropertyNameCaseInsensitive = true
-        });
-    }
-
     public async Task GetHamsters()
     {
         var results = await _http.GetFromJsonAsync<List<Hamster>>("api/Hamsters");

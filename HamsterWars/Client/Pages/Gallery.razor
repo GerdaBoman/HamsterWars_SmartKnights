@@ -6,7 +6,7 @@
 
 <h2 class="gallery">Gallery</h2>
 <div class="d-flex justify-content-center">
-<button type="button" class="btn btn-primary createNewBtn"  >Create new hamster!</button>
+<button type="button" class="btn btn-primary createNewBtn" onclick="@CreateHamster"  >Create new hamster!</button>
 </div>
 
 @if (this.HamsterService.Hamsters.Count == 0)
@@ -71,6 +71,11 @@ else
     protected override async Task OnInitializedAsync()
     {
         await HamsterService.GetHamsters();
+    }
+
+    void CreateHamster()
+    {
+        NavigationManager.NavigateTo($"hamster");
     }
 
     void ShowHamster(int id)
