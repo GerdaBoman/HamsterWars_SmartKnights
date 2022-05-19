@@ -30,7 +30,9 @@ namespace HamsterWars.Server.Controllers
           {
               return NotFound();
           }
-            return await _context.Hamster.ToListAsync();
+            var hamsters= await _context.Hamster.ToListAsync();
+            return Ok(hamsters);
+            
         }
 
         // GET: api/Hamsters/5
@@ -39,16 +41,16 @@ namespace HamsterWars.Server.Controllers
         {
           if (_context.Hamster == null)
           {
-              return NotFound();
+              return NotFound("No hamsters available!");
           }
-            var hamster = await _context.Hamster.FindAsync(id);
+            var hamster = await _context.Hamster.FirstOrDefaultAsync(h=> h.Id ==id);
 
             if (hamster == null)
             {
-                return NotFound();
+                return NotFound("No hamster found!");
             }
 
-            return hamster;
+            return Ok(hamster);
         }
 
         // GET: api/Hamsters/random
@@ -76,7 +78,6 @@ namespace HamsterWars.Server.Controllers
         }
 
         // PUT: api/Hamsters/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
         public async Task<IActionResult> PutHamster(int id, Hamster hamster)
         {

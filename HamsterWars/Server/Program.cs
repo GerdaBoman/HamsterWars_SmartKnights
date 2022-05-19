@@ -1,3 +1,4 @@
+using HamsterWars.Client.Services.HamsterService;
 using HamsterWars.Server.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;

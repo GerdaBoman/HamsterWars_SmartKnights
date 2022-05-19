@@ -1,18 +1,19 @@
 ﻿using HamsterWars.Shared.Models;
 using Microsoft.AspNetCore.Components;
 using System.Net.Http.Json;
+using System.Text;
+using System.Text.Json;
 
 namespace HamsterWars.Client.Services.HamsterService;
 
 public class HamsterService : IHamsterService
 {
     private readonly HttpClient _http;
-    private readonly NavigationManager _navigationManager;
-
-    public HamsterService(HttpClient http, NavigationManager navigationManager)
+   
+    public HamsterService(HttpClient http)
     {
         _http = http;
-        _navigationManager = navigationManager;
+       
     }
     public List<Hamster> Hamsters { get; set; } = new List<Hamster>();
 
@@ -21,9 +22,31 @@ public class HamsterService : IHamsterService
         throw new NotImplementedException();
     }
 
-    public Task DeleteHamster(int id)
+    public async Task<Hamster> CreateNewHamster(Hamster hamster)
     {
-        throw new NotImplementedException();
+        var hamsterJson = new StringContent(JsonSerializer.Serialize(hamster), Encoding.UTF8, "application/json");
+        var response = await _http.PostAsync( "api/Hamsters", hamsterJson);
+        if (response.IsSuccessStatusCode)
+        {
+            return await JsonSerializer.DeserializeAsync<Hamster>(await response.Content.ReadAsStreamAsync());
+        }
+        return null;
+    }
+
+    public async Task DeleteHamster(int id)
+    {
+            await _http.DeleteAsync( $"api/Hamsters/{id}");
+        
+    }
+
+
+
+    public async Task<Hamster> GetHamsterDetails(int id)
+    {
+        return await JsonSerializer.DeserializeAsync<Hamster>(await _http.GetStreamAsync( $"api/Hamsters/{id}"), new JsonSerializerOptions()
+        {
+            PropertyNameCaseInsensitive = true
+        });
     }
 
     public async Task GetHamsters()
@@ -33,5 +56,10 @@ public class HamsterService : IHamsterService
         {
             Hamsters = results;
         }
+    }
+
+    public Task UpdateHamster(Hamster hamster)
+    {
+        throw new NotImplementedException();
     }
 }

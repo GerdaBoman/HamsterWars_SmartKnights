@@ -6,7 +6,7 @@
 
 <h2 class="gallery">Gallery</h2>
 <div class="d-flex justify-content-center">
-<button class="btn btn-primary createNewBtn" >Create new hamster!</button>
+<button type="button" class="btn btn-primary createNewBtn"  >Create new hamster!</button>
 </div>
 
 @if (this.HamsterService.Hamsters.Count == 0)
@@ -45,8 +45,9 @@ else
                                     </p>
                                     <ul class="list-inline">
                                         <li class="list-inline-item">
-                                         <button class="btn btn-primary" @onclick="() => ShowHamster(card.Id)"><i class="oi oi-pencil"></i></button> 
+                                         <button type="submit" class="btn btn-primary" @onclick="() => ShowHamster(card.Id)"><i class="oi oi-pencil"> Edit</i></button> 
                                      </li>
+                                     <button type="submit" class="btn btn-danger" @onclick="() => DeleteEmployee(card.Id)">Delete  </button>
                                     </ul>
                                 </div>
                             </div>
@@ -63,6 +64,10 @@ else
 }
 
 @code {
+    protected string Message = string.Empty;  
+    protected string StatusClass = string.Empty;  
+    protected bool Saved;  
+
     protected override async Task OnInitializedAsync()
     {
         await HamsterService.GetHamsters();
@@ -70,7 +75,16 @@ else
 
     void ShowHamster(int id)
     {
-        
+        NavigationManager.NavigateTo($"hamsters/{id}");
     }
+
+
+    protected async Task DeleteEmployee(int id) {  
+        await HamsterService.DeleteHamster(id);
+        await HamsterService.GetHamsters();
+
+    } 
+    
+    
 
 }
