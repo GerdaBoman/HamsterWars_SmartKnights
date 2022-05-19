@@ -1,0 +1,76 @@
+﻿@page "/gallery"
+@using HamsterWars.Shared.Models
+@inject IHamsterService HamsterService
+@inject NavigationManager NavigationManager
+
+
+<h2 class="gallery">Gallery</h2>
+<div class="d-flex justify-content-center">
+<button class="btn btn-primary createNewBtn" >Create new hamster!</button>
+</div>
+
+@if (this.HamsterService.Hamsters.Count == 0)
+  {
+    <div class="e-error">
+       <div class="e-error-content">No results found. Please try a different search.</div>
+    </div>
+}
+else
+{
+    <div class="row row-cols-2 row-cols-md-3 g-4">
+    @foreach (var card in HamsterService.Hamsters)
+    {
+        <div class="col">
+            <div class="card" id="card-sizeCss">
+                <div class="image-flip" ontouchstart="this.classList.toggle('hover');">
+                    <div class="mainflip">
+                        <div class="frontside">
+                            <div class="card">
+                                <div class="card-body text-center">
+                                    <p><img class=" img-fluid hamsterImg" src="images/@card.ImgName" alt="@card.Name Photo"></p>
+                                    <h4 class="card-title">@card.Name</h4>
+                                    <p class="card-text">Age: @card.Age</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="backside">
+                            <div class="card">
+                                <div class="card-body text-center mt-4">
+                                    <h4 class="card-title">@card.Name</h4>
+                                    <p class="card-text">Age: @card.Age
+                                        <br /> Favorite food: @card.FavFood
+                                        <br /> Loves: @card.Loves
+                                        <br /> Wins: @card.Wins
+                                        <br /> Losses: @card.Losses
+                                    </p>
+                                    <ul class="list-inline">
+                                        <li class="list-inline-item">
+                                         <button class="btn btn-primary" @onclick="() => ShowHamster(card.Id)"><i class="oi oi-pencil"></i></button> 
+                                     </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+     }
+     
+     </div>
+  
+}
+
+@code {
+    protected override async Task OnInitializedAsync()
+    {
+        await HamsterService.GetHamsters();
+    }
+
+    void ShowHamster(int id)
+    {
+        
+    }
+
+}
