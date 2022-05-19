@@ -16,6 +16,6 @@ namespace HamsterWars.Server.Data
 
         public DbSet<Hamster>? Hamster { get; set; }
 
-        public DbSet<History>? History { get; set; }
+        
     }
 }

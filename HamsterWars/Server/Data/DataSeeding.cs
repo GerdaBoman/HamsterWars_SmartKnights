@@ -61,21 +61,5 @@ public class DataSeeding
         context.Hamster.AddRange(hamster);
         context.SaveChanges();
 
-
-        var history = new History[]
-         {
-                new History{  BattleDate = DateTime.Now,WinnerId=40,LoserId=39},
-                new History{  BattleDate = DateTime.Now, WinnerId=39,LoserId=37},
-                new History{  BattleDate = DateTime.Now,WinnerId=38,LoserId=36},
-                new History{  BattleDate = DateTime.Now,WinnerId=35,LoserId=34},
-                new History{  BattleDate = DateTime.Now,WinnerId=33,LoserId=34}
-          };
-
-
-
-        context.History.AddRange(history);
-
-
-        context.SaveChanges();
     }
 }

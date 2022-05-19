@@ -25,8 +25,6 @@ public class Hamster
     public int Losses { get; set; }
     public int Games { get; set; }
 
-    public History? History { get; set; }
-    public int WinnerId { get; set; }
-    public int LoserId  { get; set; }
+   
 
 }
