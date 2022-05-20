@@ -17,10 +17,7 @@ public class HamsterService : IHamsterService
     }
     public List<Hamster> Hamsters { get; set; } = new List<Hamster>();
 
-    public Task CreateHamster(Hamster hamster)
-    {
-        throw new NotImplementedException();
-    }
+  
 
     public async Task<Hamster> CreateNewHamster(Hamster hamster)
     {

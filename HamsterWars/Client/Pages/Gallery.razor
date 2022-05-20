@@ -12,12 +12,12 @@
 @if (this.HamsterService.Hamsters.Count == 0)
   {
     <div class="e-error">
-       <div class="e-error-content">No results found. Please try a different search.</div>
+       <div class="e-error-content">No hamster found in the database.Try to add some Hamsters!</div>
     </div>
 }
 else
 {
-    <div class="row row-cols-2 row-cols-md-3 g-4">
+    <div class="row row-cols-1 row-cols-lg-3 g-4">
     @foreach (var card in HamsterService.Hamsters)
     {
         <div class="col">
@@ -42,6 +42,7 @@ else
                                         <br /> Loves: @card.Loves
                                         <br /> Wins: @card.Wins
                                         <br /> Losses: @card.Losses
+                                        <br /> Total Games: @card.Games
                                     </p>
                                     <ul class="list-inline">
                                         <li class="list-inline-item">

@@ -9,7 +9,7 @@ public interface IHamsterService
     Task UpdateHamster(Hamster hamster);    
     Task DeleteHamster(int id);
     Task GetHamsters();
-    Task CreateHamster(Hamster hamster);
+
      
     
 }
