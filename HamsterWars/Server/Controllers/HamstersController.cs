@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 using HamsterWars.Shared.Models;
-using HamsterWars.Server.Data;
+using DataAccess.Data;
 
 namespace HamsterWars.Server.Controllers
 {
