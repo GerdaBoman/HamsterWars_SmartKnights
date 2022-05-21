@@ -23,6 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\DataAccess\DataAccess.csproj" />
     <ProjectReference Include="..\Client\HamsterWars.Client.csproj" />
     <ProjectReference Include="..\Shared\HamsterWars.Shared.csproj" />
   </ItemGroup>
