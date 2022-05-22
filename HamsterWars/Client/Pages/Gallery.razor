@@ -47,7 +47,7 @@ else
                                     <ul class="list-inline">
                                         <li class="list-inline-item">
                                          <button type="submit" class="btn btn-danger" @onclick="() => DeleteHamster(card.Id)">Delete  </button>
-                                         <button type="submit" class="btn btn-secondary" @onclick="() => EditHamster(card.Id)">Edit </button>
+                                         <button type="submit" class="btn btn-secondary" @onclick="() => UpdateHamster(card.Id)">Edit </button>
                                      </li>
                                      
                                     </ul>
@@ -80,16 +80,12 @@ else
         NavigationManager.NavigateTo($"hamster");
     }
     
-    void EditHamster(int id)
+    void UpdateHamster(int id)
     {
 
         NavigationManager.NavigateTo($"edit/hamster/{id}");
     }
 
-    void ShowHamster(int id)
-    {
-        NavigationManager.NavigateTo($"hamsters/{id}");
-    }
 
 
     protected async Task DeleteHamster(int id) {  
