@@ -9,10 +9,12 @@ namespace HamsterWars.Client.Services.HamsterService;
 public class HamsterService : IHamsterService
 {
     private readonly HttpClient _http;
+    private NavigationManager _navigationManager;
 
-    public HamsterService(HttpClient http)
+    public HamsterService(HttpClient http, NavigationManager navManager)
     {
         _http = http;
+        _navigationManager = navManager;
 
     }
     public List<Hamster> Hamsters { get; set; } = new List<Hamster>();
@@ -36,6 +38,14 @@ public class HamsterService : IHamsterService
 
     }
 
+    public async Task<Hamster> GetSingleHamster(int id)
+    {
+        var result = await _http.GetFromJsonAsync<Hamster>($"api/Hamsters/{id}");
+        if (result != null)
+            return result;
+        throw new Exception("No hamster found");
+
+    }
 
     public async Task GetHamsters()
     {
@@ -46,8 +56,11 @@ public class HamsterService : IHamsterService
         }
     }
 
-    public Task UpdateHamster(Hamster hamster)
+    public async Task UpdateHamster(Hamster hamster)
     {
-        throw new NotImplementedException();
+        var result = await _http.PutAsJsonAsync($"api/Hamsters/{hamster.Id}", hamster);
+        var response = await result.Content.ReadFromJsonAsync<List<Hamster>>();
+        Hamsters = response;
+        _navigationManager.NavigateTo("gallery");
     }
 }

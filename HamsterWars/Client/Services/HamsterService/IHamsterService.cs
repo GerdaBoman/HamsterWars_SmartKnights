@@ -8,6 +8,7 @@ public interface IHamsterService
     Task<Hamster> CreateNewHamster(Hamster hamster);
     Task UpdateHamster(Hamster hamster);
     Task DeleteHamster(int id);
+    Task<Hamster> GetSingleHamster(int id);
     Task GetHamsters();
 
 
