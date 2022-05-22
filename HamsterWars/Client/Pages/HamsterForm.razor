@@ -6,7 +6,7 @@
     <PageTitle>Create a new hamster</PageTitle>
     <h3>Create a new hamster</h3>
 
-<EditForm Model="@hamster" OnValidSubmit="HandleSubmit">
+<EditForm Model="@hamster"OnValidSubmit="@HandleValidSubmit" OnInvalidSubmit="HandleInvalidSubmit">
                      <div class="form-group">  
                         <label for="Name">Name: </label>  
                         <InputText id="Name" class="form-control" @bind-Value="@hamster.Name" placeholder="Enter hamsters name"></InputText>  
@@ -40,9 +40,22 @@
                         <label for="games">Total number of battles: </label>
                         <InputNumber id="games" readonly class="form-control" @bind-Value="hamster.Games" ></InputNumber>
                     </div>
+                   @if (failure)
+                     {
+                         <div class="col-md-4" style="margin-top:10px">
+                         <ValidationSummary />
+                        </div>
+                    }
+                     
                   <div class="endFormButtons">
                         <button type="submit" class="btn btn-primary">Create new hamster</button>
                    </div>
+                   @if (success)
+                     {
+                         <div class="row bg-success text-white" style="margin-top:10px; height:40px">
+                          <label class="p-2">@hamster.Name has been added to our hamster library! </label>
+                         </div>
+                    }
                   
 </EditForm>
 
@@ -54,13 +67,47 @@
 
     string btnText = string.Empty;
 
+private List<IBrowserFile> picture = new();
 
-     async Task HandleSubmit()
+    bool success = false;
+    bool failure = true;
+    string fileName = "";
+    private int maxImg = 1;
+
+
+    async Task HandleValidSubmit()
     {
-        
-            await HamsterService.CreateNewHamster(hamster);
-      
-    }
-  
 
+        success = true;
+        failure = false;
+        await HamsterService.CreateNewHamster(hamster);
+
+    }
+
+    async Task HandleInvalidSubmit()
+    {
+        failure = true;
+        success = false;
+
+    }
+
+    private void LoadFile(InputFileChangeEventArgs e)
+    {
+        picture.Clear();
+
+        foreach(var file in e.GetMultipleFiles(maxImg))
+        {
+            picture.Add(file);
+
+        }
+    }
+
+    private string GetPictureName(List<IBrowserFile> files)
+    {
+        var name = files.FirstOrDefault().ToString();
+
+        return name;
+    }
+
+    
 }

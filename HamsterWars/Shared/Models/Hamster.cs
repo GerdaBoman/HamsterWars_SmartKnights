@@ -8,7 +8,7 @@ public class Hamster
     public int Id { get; set; }
 
     [Required(ErrorMessage = "Hamsters name is required")]
-    [StringLength(50, MinimumLength = 1, ErrorMessage = "Hamsters Name cannot have less than 1 characters and more than 50 characters in length")]
+    [StringLength(50, MinimumLength = 1, ErrorMessage = "Hamsters name cannot have less than 1 characters and more than 50 characters in length")]
     public string Name { get; set; }
 
     [Required(ErrorMessage = "Hamsters age is required")]
