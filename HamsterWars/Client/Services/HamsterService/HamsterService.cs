@@ -45,6 +45,14 @@ public class HamsterService : IHamsterService
             return result;
         throw new Exception("No hamster found");
 
+    }   
+    public async Task<Hamster> GetRandomHamster()
+    {
+        var result = await _http.GetFromJsonAsync<Hamster>($"api/random");
+        if (result != null)
+            return result;
+        throw new Exception("No hamster found");
+
     }
 
     public async Task GetHamsters()
