@@ -26,7 +26,7 @@
                     </div
                     <div class="form-group">
                         <label for="imgName">Image: </label>
-                        <InputText id="imgName" class="form-control" @bind-Value="hamster.ImgName" placeholder="Choose an image "></InputText>
+                        <InputFile id="imgName" class="form-control" OnChange="LoadFile" @bind-Value="hamster.ImgName" placeholder="Choose an image "></InputFile>
                     </div>
                      <div class="form-group">
                         <label for="Wins">Wins: </label>
@@ -62,12 +62,12 @@
 
 
 @code {
-  
+
     Hamster hamster = new();
 
     string btnText = string.Empty;
 
-private List<IBrowserFile> picture = new();
+    private List<IBrowserFile> picture = new();
 
     bool success = false;
     bool failure = true;
@@ -80,6 +80,7 @@ private List<IBrowserFile> picture = new();
 
         success = true;
         failure = false;
+        GetPictureName(picture);
         await HamsterService.CreateNewHamster(hamster);
 
     }
@@ -102,11 +103,11 @@ private List<IBrowserFile> picture = new();
         }
     }
 
-    private string GetPictureName(List<IBrowserFile> files)
+    private void GetPictureName(List<IBrowserFile> files)
     {
         var name = files.FirstOrDefault().ToString();
 
-        return name;
+        hamster.ImgName = name;
     }
 
     
