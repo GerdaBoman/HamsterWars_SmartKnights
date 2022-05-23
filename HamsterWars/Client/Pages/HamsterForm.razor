@@ -66,14 +66,15 @@
 
     Hamster hamster = new();
 
+
     string btnText = string.Empty;
+
 
 
     List<ImageFile> image = new List<ImageFile>();
 
     bool success = false;
     bool failure = true;
-    string fileName = "";
     private int maxImg = 1;
 
 
@@ -82,7 +83,7 @@
 
         success = true;
         failure = false;
-        hamster.ImgName = image.FirstOrDefault().ToString();
+
         Upload();
         await HamsterService.CreateNewHamster(hamster);
 
@@ -95,21 +96,21 @@
 
     }
 
-  
+
     async Task OnChange(InputFileChangeEventArgs e)
-	{
-		var files = e.GetMultipleFiles(); // get the files selected by the users
-		foreach(var file in files)
-		{
-            
-           	var resizedFile = await file.RequestImageFileAsync(file.ContentType, 640, 480); // resize the image file
-			var buf = new byte[resizedFile.Size]; // allocate a buffer to fill with the file's data
-			using (var stream = resizedFile.OpenReadStream())
-			{
-				await stream.ReadAsync(buf); // copy the stream to the buffer
-			}
-			image.Add(new ImageFile { base64data = Convert.ToBase64String(buf), contentType = file.ContentType, FileName = file.Name }); // convert to a base64 string!!
-		}
+    {
+        var files = e.GetMultipleFiles(); // get the files selected by the users
+        foreach(var file in files)
+        {
+            var resizedFile = await file.RequestImageFileAsync(file.ContentType, 640, 480); // resize the image file
+            var buf = new byte[resizedFile.Size]; // allocate a buffer to fill with the file's data
+            using (var stream = resizedFile.OpenReadStream())
+            {
+                await stream.ReadAsync(buf); // copy the stream to the buffer
+            }
+            image.Add(new ImageFile { base64data = Convert.ToBase64String(buf), contentType = file.ContentType, FileName = file.Name }); // convert to a base64 string!!
+            hamster.ImgName = file.Name;
+        }
 		
 	}
 
