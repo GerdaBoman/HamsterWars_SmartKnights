@@ -1,7 +1,8 @@
 ﻿@page "/hamster"
-
+@using HamsterWars.Shared
 @using HamsterWars.Shared.Models
 @inject IHamsterService HamsterService
+@inject HttpClient http
 
     <PageTitle>Create a new hamster</PageTitle>
     <h3>Create a new hamster</h3>
@@ -26,7 +27,7 @@
                     </div
                     <div class="form-group">
                         <label for="imgName">Image: </label>
-                        <InputFile id="imgName" class="form-control" OnChange="LoadFile" @bind-Value="hamster.ImgName" placeholder="Choose an image "></InputFile>
+                        <InputFile id="imgName" class="custom-file-input" OnChange="OnChange" accept="image/png, image/jpeg, image/gif" placeholder="Choose an image "></InputFile>
                     </div>
                      <div class="form-group">
                         <label for="Wins">Wins: </label>
@@ -67,7 +68,8 @@
 
     string btnText = string.Empty;
 
-    private List<IBrowserFile> picture = new();
+
+    List<ImageFile> image = new List<ImageFile>();
 
     bool success = false;
     bool failure = true;
@@ -80,7 +82,8 @@
 
         success = true;
         failure = false;
-        GetPictureName(picture);
+        hamster.ImgName = image.FirstOrDefault().ToString();
+        Upload();
         await HamsterService.CreateNewHamster(hamster);
 
     }
@@ -92,23 +95,29 @@
 
     }
 
-    private void LoadFile(InputFileChangeEventArgs e)
-    {
-        picture.Clear();
+  
+    async Task OnChange(InputFileChangeEventArgs e)
+	{
+		var files = e.GetMultipleFiles(); // get the files selected by the users
+		foreach(var file in files)
+		{
+            
+           	var resizedFile = await file.RequestImageFileAsync(file.ContentType, 640, 480); // resize the image file
+			var buf = new byte[resizedFile.Size]; // allocate a buffer to fill with the file's data
+			using (var stream = resizedFile.OpenReadStream())
+			{
+				await stream.ReadAsync(buf); // copy the stream to the buffer
+			}
+			image.Add(new ImageFile { base64data = Convert.ToBase64String(buf), contentType = file.ContentType, FileName = file.Name }); // convert to a base64 string!!
+		}
+		
+	}
 
-        foreach(var file in e.GetMultipleFiles(maxImg))
-        {
-            picture.Add(file);
-
-        }
-    }
-
-    private void GetPictureName(List<IBrowserFile> files)
-    {
-        var name = files.FirstOrDefault().ToString();
-
-        hamster.ImgName = name;
-    }
-
+    async Task Upload()
+	{
+		
+		await http.PostAsJsonAsync<List<ImageFile>>("/api/upload", image, System.Threading.CancellationToken.None);
+		
+	}
     
 }

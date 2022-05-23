@@ -14,9 +14,6 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
 
-
-
-
 builder.Services.AddDbContext<HamsterWarsContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("HamsterWarsContext")));
 
@@ -48,6 +45,8 @@ app.UseHttpsRedirection();
 
 app.UseBlazorFrameworkFiles();
 app.UseStaticFiles();
+
+
 
 app.UseRouting();
 
