@@ -29,8 +29,11 @@ public class HamsterRepository : IHamsterRepository
         {
             _context.Hamster.Remove(result);
             await _context.SaveChangesAsync();
+            return result;
         }
 
+        return null;
+   
     }
 
     public async Task<IEnumerable<Hamster>> GetHamsters()
