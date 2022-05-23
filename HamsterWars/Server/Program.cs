@@ -1,5 +1,6 @@
 using DataAccess.Data;
 using HamsterWars.Client.Services.HamsterService;
+using HamsterWars.Server.Repository;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -13,6 +14,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
+builder.Services.AddScoped<IHamsterRepository, HamsterRepository>();
 
 builder.Services.AddDbContext<HamsterWarsContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("HamsterWarsContext")));

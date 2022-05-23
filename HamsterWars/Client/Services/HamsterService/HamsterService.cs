@@ -48,7 +48,7 @@ public class HamsterService : IHamsterService
     }   
     public async Task<Hamster> GetRandomHamster()
     {
-        var result = await _http.GetFromJsonAsync<Hamster>($"api/random");
+        var result = await _http.GetFromJsonAsync<Hamster>($"api/Hamsters/random");
         if (result != null)
             return result;
         throw new Exception("No hamster found");
@@ -69,6 +69,6 @@ public class HamsterService : IHamsterService
         var result = await _http.PutAsJsonAsync($"api/Hamsters/{hamster.Id}", hamster);
         var response = await result.Content.ReadFromJsonAsync<List<Hamster>>();
         Hamsters = response;
-        _navigationManager.NavigateTo("gallery");
+        
     }
 }

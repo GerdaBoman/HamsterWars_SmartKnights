@@ -11,4 +11,5 @@ builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.
 builder.Services.AddScoped<IHamsterService, HamsterService>();
 
 
+
 await builder.Build().RunAsync();

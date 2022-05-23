@@ -1,7 +1,102 @@
 ﻿@page "/battle"
+@using HamsterWars.Shared.Models
+@inject IHamsterService hamsterService
 
-<h3>Which one is cute?!</h3>
+<h3 class="justify-content-center">Which one is cuter?!</h3>
+
+@if(firstHamster != null && secondHamster != null)
+{
+    <div class="container d-flex align-items-center justify-content-center position-relative flex-wrap">
+        <div class="card d-flex position-relative flex-column">
+            <div class='imgContainer'>
+                <img class="battleImages" src='images/@firstHamster.ImgName'>
+            </div>
+            <div class="content">
+                <h2>@firstHamster.Name</h2>
+                <button type="button" @onclick="() => ChosenWinner(firstHamster.Id)" class="btn btn-success"><span class="oi oi-check"></span> Vote for me!</button>
+                <br>
+                <p>Age: @firstHamster.Age</p>
+                <p>Loves: @firstHamster.Loves</p>
+                <p>Favorite food: @firstHamster.FavFood</p>
+                
+            </div>
+        </div>
+        <div class="card d-flex position-relative flex-column">
+            <div class='imgContainer'>
+                <img class="battleImages" src='images/@secondHamster.ImgName'>
+            </div>
+             <div class="content">
+                <h2>@secondHamster.Name</h2>
+                <button type="button" @onclick="() => ChosenWinner(secondHamster.Id)" class="btn btn-success"><span class="oi oi-check"></span> Vote for me!</button>
+                <br>
+                <p>Age: @secondHamster.Age</p>
+                <p>Loves: @secondHamster.Loves</p>
+                <p>Favorite food: @secondHamster.FavFood</p>
+                
+                <br>
+            </div>
+        </div>
+   </div>
+}
+else
+{
+    <h2>No hamster have been found! Have you got cheese to attract hamsters?</h2>
+}
 
 @code {
+
+    Hamster firstHamster  { get; set; }
+    Hamster secondHamster { get; set; }
+
+    bool result = false;
+    int win = 1;
+    int lost = 1;
+    int game = 1;
+
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        firstHamster = await hamsterService.GetRandomHamster();
+        secondHamster = await hamsterService.GetRandomHamster();
+    }
+    void ChosenWinner(int id)
+    {
+        if(id == firstHamster.Id)
+        {
+            firstHamster.Wins = firstHamster.Wins ++;
+            secondHamster.Losses = secondHamster.Losses ++;
+            firstHamster.Games++;
+            secondHamster.Games++;
+            UpdateHamster();
+            NewBattle();
+
+        }
+        else
+        {
+            secondHamster.Wins = secondHamster.Wins ++;
+            firstHamster.Losses = firstHamster.Losses ++;
+            firstHamster.Games++;
+            secondHamster.Games++;
+            UpdateHamster();
+            NewBattle();
+        }
+
+    }
+
+    async Task UpdateHamster()
+    {
+        await hamsterService.UpdateHamster(firstHamster);
+        await hamsterService.UpdateHamster(secondHamster);
+    }
+
+    async Task NewBattle()
+    {
+        firstHamster = await hamsterService.GetRandomHamster();
+        secondHamster = await hamsterService.GetRandomHamster();
+    }
+
+
+    
 
 }

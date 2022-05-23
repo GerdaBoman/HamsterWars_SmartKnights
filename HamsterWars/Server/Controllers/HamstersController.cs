@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 using HamsterWars.Shared.Models;
 using DataAccess.Data;
+using HamsterWars.Server.Repository;
 
 namespace HamsterWars.Server.Controllers
 {
@@ -15,42 +16,43 @@ namespace HamsterWars.Server.Controllers
     [ApiController]
     public class HamstersController : ControllerBase
     {
-        private readonly HamsterWarsContext _context;
+        private readonly IHamsterRepository _hamsterRepository;
 
-        public HamstersController(HamsterWarsContext context)
+        public HamstersController(IHamsterRepository hamsterRepository)
         {
-            _context = context;
+            _hamsterRepository = hamsterRepository;
         }
 
         // GET: api/Hamsters
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Hamster>>> GetHamster()
         {
-          if (_context.Hamster == null)
-          {
-              return NotFound();
-          }
-            var hamsters= await _context.Hamster.ToListAsync();
-            return Ok(hamsters);
-            
+          try
+            {
+                return Ok(await _hamsterRepository.GetHamsters());
+            }
+            catch
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                    "Error retrieving data from the database");
+            }
         }
 
         // GET: api/Hamsters/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Hamster>> GetHamster(int id)
         {
-          if (_context.Hamster == null)
-          {
-              return NotFound("No hamsters available!");
-          }
-            var hamster = await _context.Hamster.FirstOrDefaultAsync(h=> h.Id ==id);
-
-            if (hamster == null)
+            try
             {
-                return NotFound("No hamster found!");
+                var result = await _hamsterRepository.GetSingleHamster(id);
+                if (result == null) return NotFound();
+                return result;
             }
-
-            return Ok(hamster);
+            catch
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                    "Error retrieving data from the database");
+            }
         }
 
         // GET: api/Hamsters/random
@@ -58,93 +60,91 @@ namespace HamsterWars.Server.Controllers
        
         public async Task<ActionResult<Hamster>> GetHamsterRandom()
         {
-         var total = await _context.Hamster.CountAsync();
-         Random random = new Random();
-         var id = random.Next(1,total);
-           
-
-          if (_context.Hamster == null)
-          {
-              return NotFound();
-          }
-            var hamster = await _context.Hamster.FindAsync(id);
-
-            if (hamster == null)
+            try
             {
-                return NotFound();
+                var result = await _hamsterRepository.GetRandomHamster();
+                if (result == null) return NotFound();
+                return result;
             }
-
-            return hamster;
+            catch
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                    "Error retrieving data from the database");
+            }
         }
 
         // PUT: api/Hamsters/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutHamster(int id, Hamster hamster)
+        public async Task<ActionResult<Hamster>> UpdateHamster(int id, Hamster hamster)
         {
-            if (id != hamster.Id)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(hamster).State = EntityState.Modified;
-
             try
             {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!HamsterExists(id))
+                if (id != hamster.Id)
                 {
-                    return NotFound();
+                    return BadRequest("Hamster ID does not match");
                 }
-                else
-                {
-                    throw;
-                }
-            }
 
-            return NoContent();
+                var updateHamster = await _hamsterRepository.GetSingleHamster(id);
+
+                if(updateHamster.Id == null)
+                {
+                    return NotFound($"Hamster with ID = {id} not found");
+                }
+
+                return await _hamsterRepository.UpdateHamster(hamster);
+            }
+            catch
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                "Error updating data");
+
+            }
         }
 
         // POST: api/Hamsters
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Hamster>> PostHamster(Hamster hamster)
+        public async Task<ActionResult<Hamster>> CreateHamster(Hamster hamster)
         {
-          if (_context.Hamster == null)
-          {
-              return Problem("Entity set 'HamsterWarsContext.Hamster'  is null.");
-          }
-            _context.Hamster.Add(hamster);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetHamster", new { id = hamster.Id }, hamster);
+            try
+            {
+                if(hamster == null)
+                {
+                    return BadRequest();
+                }
+                var newHamster = await _hamsterRepository.CreateNewHamster(hamster);
+                return CreatedAtAction(nameof(GetHamster),
+                       new { id = newHamster.Id }, newHamster);
+            }
+            catch
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                "Error creating new employee record");
+            }
         }
 
         // DELETE: api/Hamsters/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteHamster(int id)
+        public async Task<ActionResult<Hamster>> DeleteHamster(int id)
         {
-            if (_context.Hamster == null)
+            try
             {
-                return NotFound();
+                var hamsterToDelete = await _hamsterRepository.GetSingleHamster(id);
+
+                if (hamsterToDelete == null)
+                {
+                    return NotFound($"Hamster with Id = {id} not found");
+                }
+
+                return await _hamsterRepository.DelelteHamster(id);
             }
-            var hamster = await _context.Hamster.FindAsync(id);
-            if (hamster == null)
+            catch
             {
-                return NotFound();
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                "Error deleting data");
             }
-
-            _context.Hamster.Remove(hamster);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
         }
 
-        private bool HamsterExists(int id)
-        {
-            return (_context.Hamster?.Any(e => e.Id == id)).GetValueOrDefault();
-        }
+       
     }
 }
