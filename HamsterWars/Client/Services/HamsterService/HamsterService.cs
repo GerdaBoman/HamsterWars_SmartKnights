@@ -11,10 +11,10 @@ public class HamsterService : IHamsterService
     private readonly HttpClient _http;
     private NavigationManager _navigationManager;
 
-    public HamsterService(HttpClient http, NavigationManager navManager)
+    public HamsterService(HttpClient http)
     {
         _http = http;
-        _navigationManager = navManager;
+      
 
     }
     public List<Hamster> Hamsters { get; set; } = new List<Hamster>();
@@ -35,7 +35,6 @@ public class HamsterService : IHamsterService
     public async Task DeleteHamster(int id)
     {
         await _http.DeleteAsync($"api/Hamsters/{id}");
-
     }
 
     public async Task<Hamster> GetSingleHamster(int id)

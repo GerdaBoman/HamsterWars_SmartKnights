@@ -39,9 +39,14 @@
         </div>
    </div>
   </div>
+    @if (result)
+    {
+          
+         <h1> Precious winner: @winnerHamster.Name</h1>
+         <h2> Previous loser : @loserHamster.Name</h2>
+  
+    }
 
-  <h1> Precious winner: @winnerHamster.Name</h1>
-  <h2> Previous loser : @loserHamster.Name</h2>
 }
 else
 {
@@ -83,11 +88,15 @@ else
             firstHamster.Games = firstHamster.Games + game;
             secondHamster.Games= secondHamster.Games + game;
 
+
+            UpdateHamster(firstHamster);
+            UpdateHamster(secondHamster);
+
             winnerHamster = firstHamster;
             loserHamster = secondHamster;
 
-            UpdateHamster();
             NewBattle();
+            result = true;
 
         }
         else
@@ -97,35 +106,35 @@ else
             firstHamster.Games = firstHamster.Games + game;
             secondHamster.Games= secondHamster.Games + game;
 
+            UpdateHamster(firstHamster);
+            UpdateHamster(secondHamster);
+
             winnerHamster = secondHamster;
             loserHamster = firstHamster;
 
-            UpdateHamster();
-
             NewBattle();
+            result = true;
 
 
         }
 
     }
 
-    async Task UpdateHamster()
+    async Task UpdateHamster(Hamster hamster)
     {
-        await hamsterService.UpdateHamster(firstHamster);
-        await hamsterService.UpdateHamster(secondHamster);
-        ;
+        await hamsterService.UpdateHamster(hamster);
+      
+        
     }
 
     async Task NewBattle()
     {
         firstHamster = await hamsterService.GetRandomHamster();
         secondHamster = await hamsterService.GetRandomHamster();
+        StateHasChanged();
     }
 
-    void Result()
-    {
-        
-    }
+ 
 
 
 }

@@ -16,7 +16,6 @@ namespace HamsterWars.Server.Controllers
             _webHostEnvironment = webHostEnvironment;
         }
 
-
         [HttpPost]
         public async Task Post([FromBody] ImageFile[] files)
         {
