@@ -12,4 +12,5 @@ builder.Services.AddScoped<IHamsterService, HamsterService>();
 
 
 
+
 await builder.Build().RunAsync();

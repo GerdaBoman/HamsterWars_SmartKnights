@@ -6,37 +6,42 @@
 
 @if(firstHamster != null && secondHamster != null)
 {
+    
     <div class="container d-flex align-items-center justify-content-center position-relative flex-wrap">
+         <div class="inludingBtn">
+                <button type="submit" @onclick="() => ChosenWinner(firstHamster.Id)" class="btn btn-success"><span class="oi oi-check"></span> Vote for me!</button>
+                
         <div class="card d-flex position-relative flex-column">
+            
             <div class='imgContainer'>
                 <img class="battleImages" src='images/@firstHamster.ImgName'>
             </div>
             <div class="content">
                 <h2>@firstHamster.Name</h2>
-                <button type="button" @onclick="() => ChosenWinner(firstHamster.Id)" class="btn btn-success"><span class="oi oi-check"></span> Vote for me!</button>
-                <br>
                 <p>Age: @firstHamster.Age</p>
                 <p>Loves: @firstHamster.Loves</p>
                 <p>Favorite food: @firstHamster.FavFood</p>
-                
             </div>
         </div>
+      </div>
+      <div class="inludingBtn">
+                <button type="submit" @onclick="() => ChosenWinner(secondHamster.Id)" class="btn btn-success"><span class="oi oi-check"></span> Vote for me!</button>   
         <div class="card d-flex position-relative flex-column">
             <div class='imgContainer'>
                 <img class="battleImages" src='images/@secondHamster.ImgName'>
             </div>
              <div class="content">
                 <h2>@secondHamster.Name</h2>
-                <button type="button" @onclick="() => ChosenWinner(secondHamster.Id)" class="btn btn-success"><span class="oi oi-check"></span> Vote for me!</button>
-                <br>
                 <p>Age: @secondHamster.Age</p>
                 <p>Loves: @secondHamster.Loves</p>
                 <p>Favorite food: @secondHamster.FavFood</p>
-                
-                <br>
             </div>
         </div>
    </div>
+  </div>
+
+  <h1> Precious winner: @winnerHamster.Name</h1>
+  <h2> Previous loser : @loserHamster.Name</h2>
 }
 else
 {
@@ -48,6 +53,10 @@ else
     Hamster firstHamster  { get; set; }
     Hamster secondHamster { get; set; }
 
+
+    Hamster winnerHamster = new();
+    Hamster loserHamster = new();
+
     bool result = false;
     int win = 1;
     int lost = 1;
@@ -57,29 +66,46 @@ else
 
     protected override async Task OnInitializedAsync()
     {
+
         firstHamster = await hamsterService.GetRandomHamster();
         secondHamster = await hamsterService.GetRandomHamster();
+
+        if( firstHamster.Id == secondHamster.Id)
+        {
+            secondHamster = await hamsterService.GetRandomHamster();
+        }
     }
     void ChosenWinner(int id)
     {
         if(id == firstHamster.Id)
         {
-            firstHamster.Wins = firstHamster.Wins ++;
-            secondHamster.Losses = secondHamster.Losses ++;
-            firstHamster.Games++;
-            secondHamster.Games++;
+            firstHamster.Wins = firstHamster.Wins + win;
+            secondHamster.Losses = secondHamster.Losses + lost;
+            firstHamster.Games = firstHamster.Games + game;
+            secondHamster.Games= secondHamster.Games + game;
+
+            winnerHamster = firstHamster;
+            loserHamster = secondHamster;
+
             UpdateHamster();
             NewBattle();
 
         }
         else
         {
-            secondHamster.Wins = secondHamster.Wins ++;
-            firstHamster.Losses = firstHamster.Losses ++;
-            firstHamster.Games++;
-            secondHamster.Games++;
+            secondHamster.Wins = secondHamster.Wins + win;
+            firstHamster.Losses = firstHamster.Losses + lost;
+            firstHamster.Games = firstHamster.Games + game;
+            secondHamster.Games= secondHamster.Games + game;
+
+            winnerHamster = secondHamster;
+            loserHamster = firstHamster;
+
             UpdateHamster();
+
             NewBattle();
+
+
         }
 
     }
@@ -88,6 +114,7 @@ else
     {
         await hamsterService.UpdateHamster(firstHamster);
         await hamsterService.UpdateHamster(secondHamster);
+        ;
     }
 
     async Task NewBattle()
@@ -96,7 +123,10 @@ else
         secondHamster = await hamsterService.GetRandomHamster();
     }
 
+    void Result()
+    {
+        
+    }
 
-    
 
 }

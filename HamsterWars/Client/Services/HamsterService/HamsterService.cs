@@ -40,28 +40,18 @@ public class HamsterService : IHamsterService
 
     public async Task<Hamster> GetSingleHamster(int id)
     {
-        var result = await _http.GetFromJsonAsync<Hamster>($"api/Hamsters/{id}");
-        if (result != null)
-            return result;
-        throw new Exception("No hamster found");
+        return await _http.GetFromJsonAsync<Hamster>($"api/Hamsters/{id}");
 
     }   
     public async Task<Hamster> GetRandomHamster()
     {
-        var result = await _http.GetFromJsonAsync<Hamster>($"api/Hamsters/random");
-        if (result != null)
-            return result;
-        throw new Exception("No hamster found");
+        return await _http.GetFromJsonAsync<Hamster>($"api/Hamsters/random");
 
     }
 
-    public async Task GetHamsters()
+    public async Task<IEnumerable<Hamster>> GetHamsters()
     {
-        var results = await _http.GetFromJsonAsync<List<Hamster>>("api/Hamsters");
-        if (results != null)
-        {
-            Hamsters = results;
-        }
+       return await _http.GetFromJsonAsync<Hamster[]>("api/Hamsters");
     }
 
     public async Task UpdateHamster(Hamster hamster)
