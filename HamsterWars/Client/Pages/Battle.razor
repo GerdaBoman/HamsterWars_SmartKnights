@@ -43,6 +43,7 @@
     {
           
          <h1> Precious winner: @winnerHamster.Name</h1>
+         <h3> @GetPercentage(winnerHamster)% of people agree that @winnerHamster.Name is cuter than @loserHamster.Name</h3>
          <h2> Previous loser : @loserHamster.Name</h2>
   
     }
@@ -66,7 +67,16 @@ else
     int lost = 1;
     int game = 1;
 
+    double GetPercentage(Hamster hamster)
+    {
+        double wins = Convert.ToDouble(hamster.Wins);
+        double totalGames = Convert.ToDouble(hamster.Games);
 
+        double percentage = Math.Round(((wins / totalGames) * 100), 2);
+
+        return percentage;
+
+    }
 
     protected override async Task OnInitializedAsync()
     {
@@ -94,6 +104,7 @@ else
 
             winnerHamster = firstHamster;
             loserHamster = secondHamster;
+            double winnerStatistics = GetPercentage(winnerHamster);
 
             NewBattle();
             result = true;
@@ -111,6 +122,8 @@ else
 
             winnerHamster = secondHamster;
             loserHamster = firstHamster;
+
+            double winnerStatistics = GetPercentage(winnerHamster);
 
             NewBattle();
             result = true;
