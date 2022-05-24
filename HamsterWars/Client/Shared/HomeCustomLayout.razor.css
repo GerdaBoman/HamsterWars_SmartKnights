@@ -1,0 +1,11 @@
+﻿body {
+    background-color: black;
+}
+
+#column1{
+    align-content: center;
+}
+
+hr{
+    width: fit-content;
+}
