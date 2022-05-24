@@ -6,7 +6,7 @@
 
 <h2 class="gallery">Gallery</h2>
 <div class="d-flex justify-content-center">
-<button type="button" class="btn btn-primary createNewBtn" onclick="@CreateHamster"  >Create new hamster!</button>
+<button type="button" class="btn btn-primary createNewBtn" onclick="@CreateHamster">Create new hamster!</button>
 </div>
 
 @if (this.HamsterService.Hamsters.Count == 0)
@@ -67,7 +67,9 @@ else
 @code {
     protected string Message = string.Empty;  
     protected string StatusClass = string.Empty;  
-    protected bool Saved;  
+    protected bool Saved;
+
+    
 
     protected override async Task OnInitializedAsync()
     {

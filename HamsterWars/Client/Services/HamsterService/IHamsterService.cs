@@ -10,7 +10,7 @@ public interface IHamsterService
     Task DeleteHamster(int id);
     Task<Hamster> GetSingleHamster(int id); 
     Task<Hamster> GetRandomHamster();
-    Task<IEnumerable<Hamster>> GetHamsters();
+    Task GetHamsters();
     
 
 
