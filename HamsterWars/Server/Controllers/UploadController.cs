@@ -22,7 +22,7 @@ namespace HamsterWars.Server.Controllers
             foreach( var file in files)
             {
                 var buf = Convert.FromBase64String(file.base64data);
-                await System.IO.File.WriteAllBytesAsync(_webHostEnvironment.ContentRootPath.Replace("\\Server", "\\Client\\wwwroot") + "images" + $@"\{ file.FileName}", buf);
+                await System.IO.File.WriteAllBytesAsync(_webHostEnvironment.ContentRootPath.Replace("\\Server", "\\Client\\wwwroot\\images\\hamsterImg") +  $@"\{ file.FileName}", buf);
             }
         }
 
