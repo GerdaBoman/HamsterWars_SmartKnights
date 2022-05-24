@@ -1,8 +1,10 @@
 ﻿@inherits LayoutComponentBase
+
 <head>
     <link href="https://fonts.googleapis.com/css2?family=Satisfy&display=swap" rel="stylesheet">
  </head>
 
+ <nav class="navbar navbar-default">
     <div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
     <nav class="flex-column">
         <div class="nav-item px-3">
@@ -22,6 +24,7 @@
         </div>
     </nav>
 </div>
+</nav>
 
 @Body
 
