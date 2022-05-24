@@ -1,53 +1,43 @@
 ﻿
 
-<nav class="navbar navbar-expand-md  bg-light mb-4">
+<nav class="navbar navbar-expand-md mb-4 navbar-dark " style="background-color: deepskyblue; color:navy">
     <div class="container-fluid">
         <a class="navbar-brand" href="">
-            <img src="images/logo.png" alt="logo" width="35" height="29" class="d-inline-block align-text-top"/>
-            Hamster Wars</a>
-        <button class="navbar-toggler @NavButtonCssClass" type="button" aria-controls="navbarCollapse"
-            aria-label="Toggle navigation" @onclick="ToggleNavMenu">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse @NavBarCssClass" id="navbarCollapse" @onclick="ToggleNavMenu">
-            <ul class="navbar-nav me-auto mb-2 mb-md-0">
+            <img src="images/logo.png" alt="logo" width="35" height="29" class="d-inline-block align-text-top"/>  Hamster Wars</a>
+        <div class="navbar-expand">
+            <ul class="navbar-nav me-auto mb-2 ">
                 <li class="nav-item">
-                    <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
+                    <NavLink class="nav-link" href="">
                        <span class="oi oi-home"></span Home
                     </NavLink>
                 </li>
                 <li class="nav-item">
-                    <NavLink class="nav-link" href="battle">
+                    <NavLink class="nav-link" href="/Battle">
                         <span class="oi oi-flash"></span> Battle
                     </NavLink>
                 </li>
                 <li class="nav-item">
-                    <NavLink class="nav-link" href="gallery">
+                    <NavLink class="nav-link" href="/Gallery">
                         <span class="oi oi-image"></span> Gallery
                     </NavLink>
                 </li> 
                 <li class="nav-item">
-                    <NavLink class="nav-link" href="hamster">
+                    <NavLink class="nav-link" href="/Hamster">
                         <span class="oi oi-pencil"></span> Join the fun!
                     </NavLink>
                 </li>
                 <li class="nav-item">
-                    <NavLink class="nav-link" href="hamster">
+                    <NavLink class="nav-link" href="">
                         <span class="oi oi-star"></span> Feeling Lucky?
                     </NavLink>
                 </li>
             </ul>
-        </div>
+       </div>
+
     </div>
 </nav>
 
 @code {
-    private bool collapseNavMenu = true;
-    private string? NavBarCssClass => collapseNavMenu ? null : "show";
-    private string? NavButtonCssClass => collapseNavMenu ? "collapsed" : null;
-
-    private void ToggleNavMenu()
-    {
-        collapseNavMenu = !collapseNavMenu;
-    }
+   
+    
 }

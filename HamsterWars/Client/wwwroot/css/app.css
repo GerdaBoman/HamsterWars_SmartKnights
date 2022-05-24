@@ -3,6 +3,7 @@
 
 html, body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    background-color:deepskyblue;
  
 }
 
@@ -268,3 +269,31 @@ section {
         left: -2px;
     }
 }
+
+.welcomeBg{
+    background-color: deepskyblue;
+    padding-top:150px;
+    margin-bottom:350px;
+    margin-left:20%;
+    
+}
+
+.IndexInfo{
+    background-color:whitesmoke;
+    text-align:center;
+    align-content:center;
+    
+}
+.welcomeImage{
+    width : 800px;
+    height:auto;
+    
+}
+.welcomeMessage{
+    font-size:40px;
+    padding-top:40px;
+}
+.welcomeHolder{
+    height:400px;
+}
+

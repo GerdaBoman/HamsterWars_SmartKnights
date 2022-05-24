@@ -1,10 +1,33 @@
 ﻿@page "/"
-@layout HomeCustomLayout
+
 
 <PageTitle>Index</PageTitle>
+    <di class="welcomeHolder">
+      <div class="container-fluid welcomeBg">
+             <div class="row align-items-center">
+               <div class="col-md-7 col-sm-6 col-xs-12 text-center ">
+                        <h2 class="welcomeMessage">Welcome To HamsterWars</h2>
+                        <h6 class="subTextWelcome">Where you can vote for the</h6>
+                        <a class="btn btn-secondary welcomeButton" href="/battle">Vote</a>
+                        <a class="btn btn-secondary" href="/Gallery">Gallery</a>
+               </div>
+                <div class="col-md-7 col-sm-6 col-xs-12">
+                <img src="/images/welcomeVS.png"class="img-fluid welcomeImage "/>
+                </div>
+            </div>
+        </div>
+   </di>
 
-@*<h1>Hello, world!</h1>
+<div class="IndexInfo">
+    <div class="row">
+        <div class="col-md-6 col-sm-6 col-xs-12">
+        <img src="/images/VS_hamsters.png" class="img-fluid"/>
+        </div>
+        <div class="col-md-6 col-sm-6 col-xs-12 text-center">
+             <h2>Instructions</h2>
+             <p>Här kommer instruktioner</p><br />
+             <p>hejsan jasfhsdjfs afjdhjfahdf asdfj</p>
+         </div>
 
-Welcome to your new app.
-
-<SurveyPrompt Title="How is Blazor working for you?" />*@
+    </div>
+</div>
