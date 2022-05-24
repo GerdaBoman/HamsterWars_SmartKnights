@@ -1,0 +1,52 @@
+﻿@page "/getlucky"
+@using HamsterWars.Shared.Models
+@inject IHamsterService hamsterService
+
+<h3>Random Hamster Picker</h3>
+<a class="btn btn-primary" @onclick=@PickNewHamster>Shuffle</a>
+@if (counter <= 0)
+{
+    <h3>Shuffle to try out your luck!</h3>
+}
+else
+{
+        <div class="card" id="card-sizeCss">
+        <div class="image-flip" ontouchstart="this.classList.toggle('hover');">
+            <div class="mainflip">
+                <div class="frontside">
+                    <div class="card">
+                        <div class="card-body text-center">
+                            <p><img src="images/@newHamster.ImgName" /></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="backside">
+                    <div class="card">
+                        <div class="card-body text-center">
+                            <h3 class="card-title">@newHamster.Name</h3>
+                            <p class="card-text">
+                                Age: @newHamster.Age
+                                <br /> Favorite food: @newHamster.FavFood
+                                <br /> Loves: @newHamster.Loves
+                                <br /> Wins: @newHamster.Wins
+                                <br /> Losses: @newHamster.Losses
+                                <br /> Total Games: @newHamster.Games
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@code {
+    Hamster newHamster = new Hamster();
+    private int counter;
+
+    private async Task PickNewHamster()
+    {
+        newHamster = await hamsterService.GetRandomHamster();
+        counter++;
+    }
+}
