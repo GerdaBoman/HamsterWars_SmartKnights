@@ -270,30 +270,68 @@ section {
     }
 }
 
-.welcomeBg{
+.welcomeBg {
     background-color: deepskyblue;
-    padding-top:150px;
-    margin-bottom:350px;
-    margin-left:20%;
+    padding-top:30px;
     
+    justify-content: center;
+    align-items: center;
 }
 
 .IndexInfo{
     background-color:whitesmoke;
-    text-align:center;
-    align-content:center;
+ 
     
 }
 .welcomeImage{
     width : 800px;
     height:auto;
+    padding-bottom:60px;
+    padding-top:60px;
     
 }
-.welcomeMessage{
-    font-size:40px;
-    padding-top:40px;
-}
-.welcomeHolder{
-    height:400px;
+.welcomeMessage {
+    font-size: 60px;
+    font-family: 'Pacifico', cursive;
 }
 
+.subTextWelcome {
+    text-align: center;
+    font-family: 'Raleway', sans-serif;
+}
+
+.welcomeButton {
+    margin: 6px;
+    font-family: 'Raleway', sans-serif;
+    color: #ffffff;
+    background-color: #990a95;
+    font-size: 19px;
+    border: 1px solid #2d63c8;
+    padding: 15px 50px;
+    cursor: pointer
+}
+
+.welcomeButton:hover {
+    color: #142d5d;
+    background-color: #edc5eb;
+}
+
+.navLink{
+    color:aliceblue;
+}
+
+.endOfIntro {
+    width: 200px;
+    height: auto;
+}
+
+.sideHamster {
+    padding-top: 50px;
+    width: 400px;
+    height: auto;
+    padding-bottom: 250px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    
+}

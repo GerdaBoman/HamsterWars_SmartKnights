@@ -9,32 +9,34 @@
     
     <div class="container d-flex align-items-center justify-content-center position-relative flex-wrap">
          <div class="inludingBtn">
-                <button type="submit" @onclick="() => ChosenWinner(firstHamster.Id)" class="btn btn-success"><span class="oi oi-check"></span> Vote for me!</button>
+              
                 
         <div class="card d-flex position-relative flex-column">
             
             <div class='imgContainer'>
-                <img class="battleImages" src='images/@firstHamster.ImgName'>
+                <img class="battleImages" src='images/hamsterImg/@firstHamster.ImgName'>
             </div>
             <div class="content">
                 <h2>@firstHamster.Name</h2>
                 <p>Age: @firstHamster.Age</p>
                 <p>Loves: @firstHamster.Loves</p>
                 <p>Favorite food: @firstHamster.FavFood</p>
+                  <button type="submit" @onclick="() => ChosenWinner(firstHamster.Id)" class="btn btn-success"><span class="oi oi-check"></span> Vote for me!</button>
             </div>
         </div>
       </div>
       <div class="inludingBtn">
-                <button type="submit" @onclick="() => ChosenWinner(secondHamster.Id)" class="btn btn-success"><span class="oi oi-check"></span> Vote for me!</button>   
+              
         <div class="card d-flex position-relative flex-column">
             <div class='imgContainer'>
-                <img class="battleImages" src='images/@secondHamster.ImgName'>
+                <img class="battleImages" src='images/hamsterImg/@secondHamster.ImgName'>
             </div>
              <div class="content">
                 <h2>@secondHamster.Name</h2>
                 <p>Age: @secondHamster.Age</p>
                 <p>Loves: @secondHamster.Loves</p>
                 <p>Favorite food: @secondHamster.FavFood</p>
+                <button type="submit" @onclick="() => ChosenWinner(secondHamster.Id)" class="btn btn-success"><span class="oi oi-check"></span> Vote for me!</button> 
             </div>
         </div>
    </div>
