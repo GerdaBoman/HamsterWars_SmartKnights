@@ -25,6 +25,7 @@
                         <label for="loves">Loves: </label>  
                         <InputText id="loves" class="form-control" @bind-Value="@hamster.Loves" placeholder="Enter what hamster loves"></InputText>  
                     </div
+                    
                     <div class="form-group">
                         <label for="imgName">Image: </label>
                         <InputFile id="imgName" class="custom-file-input" OnChange="OnChange" accept="image/png, image/jpeg, image/gif" placeholder="Choose an image "></InputFile>
@@ -69,7 +70,8 @@
 
     string btnText = string.Empty;
 
-
+    //TODO: FIX IMAGE VALIDATION!
+    //TODO: FIX AGE VALUE SO THAT IT DOESNT START WITH 0
 
     List<ImageFile> image = new List<ImageFile>();
 

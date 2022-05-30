@@ -3,10 +3,15 @@
 @inject IHamsterService HamsterService
 @inject NavigationManager NavigationManager
 
+<head>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Raleway&display=swap" rel="stylesheet">
+</head>
 
 <h2 class="gallery">Gallery</h2>
 <div class="d-flex justify-content-center">
-<button type="button" class="btn btn-primary createNewBtn" onclick="@CreateHamster">Create new hamster!</button>
+    <button type="button" class="btn btn-primary createNewBtn" onclick="@CreateHamster">Create new hamster!</button>
 </div>
 
 @if (this.HamsterService.Hamsters.Count == 0)
@@ -21,42 +26,31 @@ else
     @foreach (var card in HamsterService.Hamsters)
     {
         <div class="col">
-            <div class="card" id="card-sizeCss">
-                <div class="image-flip" ontouchstart="this.classList.toggle('hover');">
-                    <div class="mainflip">
-                        <div class="frontside">
-                            <div class="card">
-                                <div class="card-body text-center">
-                                    <p><img class=" img-fluid hamsterImg" src="images/hamsterImg/@card.ImgName" alt="@card.Name Photo"></p>
-                                    <h4 class="card-title">@card.Name</h4>
-                                    <p class="card-text">Age: @card.Age</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="backside">
-                            <div class="card">
-                                <div class="card-body text-center mt-4">
-                                    <h4 class="card-title">@card.Name</h4>
-                                    <p class="card-text">Age: @card.Age
-                                        <br /> Favorite food: @card.FavFood
-                                        <br /> Loves: @card.Loves
-                                        <br /> Wins: @card.Wins
-                                        <br /> Losses: @card.Losses
-                                        <br /> Total Games: @card.Games
-                                    </p>
-                                    <ul class="list-inline">
+        <div id="f1_container">
+            <div id="f1_card" class="shadow">
+                <div class="front face">
+                    <img class="img-fluid hamsterImg" src="images/hamsterImg/@card.ImgName" alt="@card.Name Photo">
+                </div>
+                <div class="back face center">
+                <h4 class="card-title">@card.Name</h4>
+                 <p class="card-text">Age: @card.Age
+                     <br /> Favorite food: @card.FavFood
+                     <br /> Loves: @card.Loves
+                     <br /> Wins: @card.Wins
+                     <br /> Losses: @card.Losses
+                     <br /> Total Games: @card.Games
+                 </p>
+                  <ul class="list-inline">
                                         <li class="list-inline-item">
                                          <button type="submit" class="btn btn-danger" @onclick="() => DeleteHamster(card.Id)">Delete  </button>
                                      </li>
                                      
                                     </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
+        </div>
+
         
      }
      
