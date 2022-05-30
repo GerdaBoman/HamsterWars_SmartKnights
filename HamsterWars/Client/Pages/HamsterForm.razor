@@ -17,6 +17,8 @@
     <div class = "createHamsterForm d-flex justify-content-center mx-auto">
 
 <EditForm Model="@hamster"OnValidSubmit="@HandleValidSubmit" OnInvalidSubmit="HandleInvalidSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
                      <div class="form-group row">  
                          <div class="col-xs-2">  
                         <label for="Name">Name: </label>  

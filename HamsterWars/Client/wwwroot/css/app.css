@@ -117,6 +117,7 @@ a, .btn-link {
 .welcomeMessage {
     font-size: 60px;
     font-family: 'Pacifico', cursive;
+    text-align:center;
 }
 
 .subTextWelcome {
