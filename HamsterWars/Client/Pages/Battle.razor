@@ -2,72 +2,102 @@
 @using HamsterWars.Shared.Models
 @inject IHamsterService hamsterService
 
-<h3 class="justify-content-center">Which one is cuter?!</h3>
+<div class="battleTop">
+    <h2>Which one is cuter?!</h2>
+    <h3>Press on the picture of your chosen one to vote for your champion!</h3>
+</div>
 
 @if(firstHamster != null && secondHamster != null)
 {
-    
-    <div class="container d-flex align-items-center justify-content-center position-relative flex-wrap">
-         <div class="inludingBtn">
-              
-                
+
+      <div class="container d-flex align-items-center justify-content-center position-relative flex-wrap">
+       
         <div class="card d-flex position-relative flex-column">
             
             <div class='imgContainer'>
-                <img class="battleImages" src='images/hamsterImg/@firstHamster.ImgName'>
+                <img class="battleImages" src='images/hamsterImg/@firstHamster.ImgName' @onclick="() => ChosenWinner(firstHamster.Id)">
             </div>
             <div class="content">
                 <h2>@firstHamster.Name</h2>
                 <p>Age: @firstHamster.Age</p>
                 <p>Loves: @firstHamster.Loves</p>
                 <p>Favorite food: @firstHamster.FavFood</p>
-                  <button type="submit" @onclick="() => ChosenWinner(firstHamster.Id)" class="btn btn-success"><span class="oi oi-check"></span> Vote for me!</button>
             </div>
         </div>
-      </div>
-      <div class="inludingBtn">
-              
+    
+  
         <div class="card d-flex position-relative flex-column">
             <div class='imgContainer'>
-                <img class="battleImages" src='images/hamsterImg/@secondHamster.ImgName'>
+                <img class="battleImages" src='images/hamsterImg/@secondHamster.ImgName' @onclick="() => ChosenWinner(secondHamster.Id)">
             </div>
              <div class="content">
                 <h2>@secondHamster.Name</h2>
                 <p>Age: @secondHamster.Age</p>
                 <p>Loves: @secondHamster.Loves</p>
                 <p>Favorite food: @secondHamster.FavFood</p>
-                <button type="submit" @onclick="() => ChosenWinner(secondHamster.Id)" class="btn btn-success"><span class="oi oi-check"></span> Vote for me!</button> 
             </div>
         </div>
    </div>
-  </div>
+
+  
+
     @if (result)
-    {
-          
-         <h1> Precious winner: @winnerHamster.Name</h1>
-         <h3> @GetPercentage(winnerHamster)% of people agree that @winnerHamster.Name is cuter than @loserHamster.Name</h3>
-         
-         <ul>
-             <li>Wins: @winnerHamster.Wins </li>
-             <li>Losses: @winnerHamster.Losses</li>
-             <li>Total Games: @winnerHamster.Games</li>
-         </ul>
+    {  
 
-         <h2> Previous loser : @loserHamster.Name</h2>
+    <div class="results">
+        <div class="result-title">
+            <h1> Previous results: </h1>
+            <h3> @GetPercentage(winnerHamster)% of people agree with you that @winnerHamster.Name is cuter than @loserHamster.Name</h3>
+        </div>
 
-         <ul>
-             <li>Wins: @loserHamster.Wins </li>
-             <li>Losses: @loserHamster.Losses</li>
-             <li>Total Games: @loserHamster.Games</li>
-         </ul>
+
+        <div class="row">
+            <div class="col d-flex justify-content-center text-center">
+      <div class="flip-card">
+         <div class="flip-card-inner">
+            <div class="flip-card-front">
+                 <img src='images/hamsterImg/@winnerHamster.ImgName' alt="@winnerHamster.Name" style="width:300px;height:300px;">
+                 <h3 class="bottom-right">Winner</h3>
+             </div>
+            <div class="flip-card-back">
+                <h1>@winnerHamster.Name</h1>
+                <p class="hamsterInfo">Wins: @winnerHamster.Wins </p>
+                <p class="hamsterInfo">Losses: @winnerHamster.Losses</p>
+                <p class="hamsterInfo">Games: @winnerHamster.Games</p>
+            </div>
+           </div>
+      </div>  
+      </div>
+
+      <div class="col d-flex justify-content-center text-center">
+      <div class="flip-card">
+         <div class="flip-card-inner">
+            <div class="flip-card-front">
+                 <img src='images/hamsterImg/@loserHamster.ImgName' alt="@loserHamster.Name" style="width:300px;height:300px;">
+                 <h3 class="bottom-right">Loser</h3>
+             </div>
+            <div class="flip-card-back">
+                <h1>@loserHamster.Name</h1>
+                <p class="hamsterInfo">Wins: @loserHamster.Wins </p>
+                <p class="hamsterInfo">Losses: @loserHamster.Losses</p>
+                <p class="hamsterInfo">Games: @loserHamster.Games</p>
+            </div>
+           </div>
+      </div>
+    </div>
+    </div>
+ </div>
+  
+        
   
     }
 
 }
 else
 {
-    <h2>No hamster have been found! Have you got cheese to attract hamsters?</h2>
+    <h2>Not enough hamster have been found! Add some to our hamster library to be able to vote!</h2>
 }
+
 
 @code {
     Hamster firstHamster = new();
@@ -94,14 +124,9 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-
         firstHamster = await hamsterService.GetRandomHamster();
         secondHamster = await hamsterService.GetRandomHamster();
-
-        if( firstHamster.Id == secondHamster.Id)
-        {
-            secondHamster = await hamsterService.GetRandomHamster();
-        }
+        CheckForDublicateHamster(firstHamster, secondHamster);
     }
     void ChosenWinner(int id)
     {
@@ -150,18 +175,24 @@ else
     async Task UpdateHamster(Hamster hamster)
     {
         await hamsterService.UpdateHamster(hamster);
-      
-        
     }
 
     async Task NewBattle()
     {
         firstHamster = await hamsterService.GetRandomHamster();
         secondHamster = await hamsterService.GetRandomHamster();
+        CheckForDublicateHamster(firstHamster, secondHamster);
         StateHasChanged();
     }
 
- 
+     async Task CheckForDublicateHamster (Hamster firstH, Hamster secondH)
+    {
+        while(firstH.Id == secondH.Id)
+        {
+            secondHamster = await hamsterService.GetRandomHamster();
+        }
+    }
+
 
 
 }
