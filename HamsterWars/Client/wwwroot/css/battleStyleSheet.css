@@ -5,11 +5,18 @@
 .battleTop {
     margin: 100px auto;
     text-align: center;
+    font-size: 60px;
+    font-family: 'Pacifico', cursive;
 }
 
 .results {
     background-color: white;
-    height:500px;
+    height:auto;
+   
+}
+.result-title {
+    text-align: center;
+    padding: 50px;
 }
 
 

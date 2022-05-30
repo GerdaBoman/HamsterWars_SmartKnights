@@ -2,9 +2,15 @@
 @using HamsterWars.Shared.Models
 @inject IHamsterService hamsterService
 
+<head>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Raleway&display=swap" rel="stylesheet">
+</head>
+
 <div class="battleTop">
-    <h2>Which one is cuter?!</h2>
-    <h3>Press on the picture of your chosen one to vote for your champion!</h3>
+    <h1 class="welcomeMessage">Which one is cuter?!</h1>
+    <h3 class="subTextWelcome">To vote - just press on the picture!</h3>
 </div>
 
 @if(firstHamster != null && secondHamster != null)
@@ -46,8 +52,8 @@
 
     <div class="results">
         <div class="result-title">
-            <h1> Previous results: </h1>
-            <h3> @GetPercentage(winnerHamster)% of people agree with you that @winnerHamster.Name is cuter than @loserHamster.Name</h3>
+            <h1 class="welcomeMessage"> Previous battle: </h1>
+            <h3 class="subTextWelcome"> @GetPercentage(winnerHamster)% of people agree with you that @winnerHamster.Name is cuter than @loserHamster.Name</h3>
         </div>
 
      <div class="row">
