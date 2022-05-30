@@ -187,3 +187,11 @@ a, .btn-link {
 {
     padding-bottom: 15px;
 }
+
+.gallery {
+    text-align: center;
+    font-size: 90px;
+    font-family: 'Pacifico', cursive;
+    margin-bottom:30px;
+}
+
