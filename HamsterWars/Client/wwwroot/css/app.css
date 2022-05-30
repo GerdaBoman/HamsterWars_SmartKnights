@@ -163,3 +163,31 @@ a, .btn-link {
     margin-left: auto;
     margin-right: auto;
 }
+
+.createHamsterForm {
+    background-color: white;
+    width: 500px;
+    height: auto;
+    display: block;
+    padding-top: 25px;
+    -webkit-box-shadow: 5px 10px 12px -4px #000000;
+    box-shadow: 5px 10px 12px -4px #000000;
+}
+
+.formTitle {
+    text-align: center;
+    font-size: 60px;
+    font-family: 'Pacifico', cursive;
+}
+
+.endFormButtons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+}
+
+.form-group
+{
+    padding-bottom: 15px;
+}
