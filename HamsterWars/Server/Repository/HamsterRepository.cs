@@ -1,5 +1,6 @@
 ﻿using DataAccess.Data;
-using HamsterWars.Shared.Models;
+using HamsterWars.Server.Interface;
+using HamsterWars.Shared.Entity;
 using Microsoft.EntityFrameworkCore;
 
 namespace HamsterWars.Server.Repository;

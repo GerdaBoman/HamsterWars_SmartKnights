@@ -1,6 +1,6 @@
-﻿using HamsterWars.Shared.Models;
+﻿using HamsterWars.Shared.Entity;
 
-namespace HamsterWars.Server.Repository;
+namespace HamsterWars.Server.Interface;
 
 public interface IHamsterRepository
 {

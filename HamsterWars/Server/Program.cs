@@ -1,5 +1,6 @@
 using DataAccess.Data;
 using HamsterWars.Client.Services.HamsterService;
+using HamsterWars.Server.Interface;
 using HamsterWars.Server.Repository;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;

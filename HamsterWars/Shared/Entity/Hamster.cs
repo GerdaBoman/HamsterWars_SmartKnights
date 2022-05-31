@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace HamsterWars.Shared.Models;
+namespace HamsterWars.Shared.Entity;
 
 public class Hamster
 {

@@ -5,10 +5,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-
-using HamsterWars.Shared.Models;
 using DataAccess.Data;
-using HamsterWars.Server.Repository;
+using HamsterWars.Shared.Entity;
+using HamsterWars.Server.Interface;
 
 namespace HamsterWars.Server.Controllers
 {
@@ -33,8 +32,8 @@ namespace HamsterWars.Server.Controllers
             }
             catch
             {
-                return StatusCode(StatusCodes.Status500InternalServerError,
-                    "Error retrieving data from the database");
+                return StatusCode(StatusCodes.Status404NotFound,
+                    "No hamsters found in database");
             }
         }
 
@@ -50,8 +49,8 @@ namespace HamsterWars.Server.Controllers
             }
             catch
             {
-                return StatusCode(StatusCodes.Status500InternalServerError,
-                    "Error retrieving data from the database");
+                return StatusCode(StatusCodes.Status404NotFound,
+                     "No hamster with that ID found in database");
             }
         }
 
@@ -68,8 +67,8 @@ namespace HamsterWars.Server.Controllers
             }
             catch
             {
-                return StatusCode(StatusCodes.Status500InternalServerError,
-                    "Error retrieving data from the database");
+                return StatusCode(StatusCodes.Status404NotFound,
+                     "No hamsters found in database");
             }
         }
 
@@ -119,7 +118,7 @@ namespace HamsterWars.Server.Controllers
             catch
             {
                 return StatusCode(StatusCodes.Status500InternalServerError,
-                "Error creating new employee record");
+                "Error creating new hamster");
             }
         }
 
@@ -140,8 +139,8 @@ namespace HamsterWars.Server.Controllers
             }
             catch
             {
-                return StatusCode(StatusCodes.Status500InternalServerError,
-                "Error deleting data");
+                return StatusCode(StatusCodes.Status404NotFound,
+                    "No hamster with that ID found in database");
             }
         }
 
