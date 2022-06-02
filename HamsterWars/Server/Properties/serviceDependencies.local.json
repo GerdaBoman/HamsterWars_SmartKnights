@@ -6,13 +6,7 @@
       "connectionId": "ConnectionStrings:HamsterWarsContext"
     },
     "secrets1": {
-      "type": "secrets.user"
-    },
-    "mssql2": {
-      "secretStore": "LocalSecretsFile",
-      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.Sql/servers/hamsterwarsdabatase/databases/HamsterWars.Server_db",
-      "type": "mssql.azure",
-      "connectionId": "ConnectionStrings:HamsterWarsContextAzure",
+      "type": "secrets.user",
       "dynamicId": null
     }
   }
