@@ -1,6 +1,6 @@
 ﻿@page "/hamster"
 @using HamsterWars.Shared
-@using HamsterWars.Shared.Models
+@using HamsterWars.Shared.Entity
 @inject IHamsterService HamsterService
 @inject HttpClient http
 
@@ -12,7 +12,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Raleway&display=swap" rel="stylesheet">
 </head>
 
-    <h3 class="formTitle">Create a new hamster</h3>
+    <h3 class="formTitle">Add new hamster</h3>
 
     <div class = "createHamsterForm d-flex justify-content-center mx-auto">
 
@@ -27,7 +27,7 @@
                  
                     <div class="form-group">  
                         <label for="Age">Age: </label>  
-                        <InputNumber id="Age" class="form-control" @bind-Value="@hamster.Age" placeholder="Enter hamsters age"></InputNumber>  
+                        <InputNumber id="Age" min="0" class="form-control" @bind-Value="@hamster.Age" placeholder="Enter hamsters age"></InputNumber>  
                     </div>
                     <div class="form-group">  
                         <label for="favFood">Favorite food: </label>  
@@ -62,7 +62,7 @@
                     }
                      
                   <div class="endFormButtons">
-                        <button type="submit" class="btn btn-primary createBtn">Create new hamster</button>
+                        <button type="submit" class="btn btn-primary createBtn">Add new hamster</button>
                    </div>
                    @if (success)
                      {
@@ -79,19 +79,15 @@
 
 @code {
 
-    Hamster hamster = new();
+        Hamster hamster = new();    
+        string btnText = string.Empty;
 
 
-    string btnText = string.Empty;
+        List<ImageFile> image = new List<ImageFile>();
 
-    //TODO: FIX IMAGE VALIDATION!
-    //TODO: FIX AGE VALUE SO THAT IT DOESNT START WITH 0
-
-    List<ImageFile> image = new List<ImageFile>();
-
-    bool success = false;
-    bool failure = true;
-    private int maxImg = 1;
+        bool success = false;
+        bool failure = true;
+        private int maxImg = 1;
 
 
     async Task HandleValidSubmit()
@@ -118,6 +114,7 @@
         var files = e.GetMultipleFiles(); // get the files selected by the users
         foreach(var file in files)
         {
+           
             var resizedFile = await file.RequestImageFileAsync(file.ContentType, 640, 480); // resize the image file
             var buf = new byte[resizedFile.Size]; // allocate a buffer to fill with the file's data
             using (var stream = resizedFile.OpenReadStream())

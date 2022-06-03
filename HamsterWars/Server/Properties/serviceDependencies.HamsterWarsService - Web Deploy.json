@@ -1,0 +1,15 @@
+{
+  "dependencies": {
+    "mssql1": {
+      "ignored": "true",
+      "type": "mssql",
+      "connectionId": "ConnectionStrings:HamsterWarsContext"
+    },
+    "mssql3": {
+      "secretStore": "AzureAppSettings",
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.Sql/servers/hamsterwarsserverdbserver/databases/HamsterWars.Server_db",
+      "type": "mssql.azure",
+      "connectionId": "HamsterWarsContext"
+    }
+  }
+}

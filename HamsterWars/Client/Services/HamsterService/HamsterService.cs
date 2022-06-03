@@ -1,4 +1,4 @@
-﻿using HamsterWars.Shared.Models;
+﻿using HamsterWars.Shared.Entity;
 using Microsoft.AspNetCore.Components;
 using System.Net.Http.Json;
 using System.Text;

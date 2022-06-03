@@ -1,8 +1,12 @@
 {
   "dependencies": {
-    "mssql1": {
+    "secrets1": {
+      "type": "secrets",
+      "dynamicId": null
+    },
+    "mssql3": {
       "type": "mssql",
-      "connectionId": "ConnectionStrings:HamsterWarsContext"
+      "connectionId": "HamsterWarsContext"
     }
   }
 }

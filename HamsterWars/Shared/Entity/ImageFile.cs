@@ -1,5 +1,4 @@
-﻿
-namespace HamsterWars.Shared;
+﻿namespace HamsterWars.Shared.Entity;
 
 public class ImageFile
 {

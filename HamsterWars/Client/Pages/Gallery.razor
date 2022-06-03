@@ -1,5 +1,5 @@
 ﻿@page "/gallery"
-@using HamsterWars.Shared.Models
+@using HamsterWars.Shared.Entity
 @inject IHamsterService HamsterService
 @inject NavigationManager NavigationManager
 
@@ -42,7 +42,7 @@ else
                  </p>
                   <ul class="list-inline">
                                         <li class="list-inline-item">
-                                         <button type="submit" class="btn btn-danger" @onclick="() => DeleteHamster(card.Id)">Delete  </button>
+                                         <button type="submit" class="btn btn-danger" @onclick="() => DeleteHamster(card.Id)" > Delete  </button>
                                      </li>
                                      
                                     </ul>
@@ -59,11 +59,7 @@ else
 }
 
 @code {
-    protected string Message = string.Empty;  
-    protected string StatusClass = string.Empty;  
-    protected bool Saved;
 
-    
 
     protected override async Task OnInitializedAsync()
     {
@@ -74,14 +70,31 @@ else
     {
         NavigationManager.NavigateTo($"hamster");
     }
-    
- 
-    protected async Task DeleteHamster(int id) {  
+
+
+    protected async Task DeleteHamster(int id) { 
+        await DeleteImage(id);
         await HamsterService.DeleteHamster(id);
         await HamsterService.GetHamsters();
 
     } 
-    
+
+    async Task DeleteImage(int id)
+    {
+        var hamster = await HamsterService.GetSingleHamster(id);
+        string imgName = hamster.ImgName.ToString();
+        string filePath = "~\\Client\\wwwroot\\images\\hamsterImg\\" + imgName;
+
+        FileInfo file = new(filePath);
+        if (file.Exists)
+        {
+            file.Delete();
+        }
+
+
+
+    }
+
     
 
 }

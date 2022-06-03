@@ -1,4 +1,4 @@
-﻿using HamsterWars.Shared;
+﻿using HamsterWars.Shared.Entity;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -26,6 +26,6 @@ namespace HamsterWars.Server.Controllers
             }
         }
 
-
+       
     }
 }

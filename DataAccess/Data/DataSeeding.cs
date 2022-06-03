@@ -1,4 +1,4 @@
-﻿using HamsterWars.Shared.Models;
+﻿using HamsterWars.Shared.Entity;
 
 namespace DataAccess.Data;
 
