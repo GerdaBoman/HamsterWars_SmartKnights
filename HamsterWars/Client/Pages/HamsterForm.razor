@@ -79,19 +79,15 @@
 
 @code {
 
-    Hamster hamster = new();
+        Hamster hamster = new();    
+        string btnText = string.Empty;
 
 
-    string btnText = string.Empty;
+        List<ImageFile> image = new List<ImageFile>();
 
-   
-    //TODO: FIX AGE VALUE SO THAT IT DOESNT START WITH 0
-
-    List<ImageFile> image = new List<ImageFile>();
-
-    bool success = false;
-    bool failure = true;
-    private int maxImg = 1;
+        bool success = false;
+        bool failure = true;
+        private int maxImg = 1;
 
 
     async Task HandleValidSubmit()
@@ -118,6 +114,7 @@
         var files = e.GetMultipleFiles(); // get the files selected by the users
         foreach(var file in files)
         {
+           
             var resizedFile = await file.RequestImageFileAsync(file.ContentType, 640, 480); // resize the image file
             var buf = new byte[resizedFile.Size]; // allocate a buffer to fill with the file's data
             using (var stream = resizedFile.OpenReadStream())
