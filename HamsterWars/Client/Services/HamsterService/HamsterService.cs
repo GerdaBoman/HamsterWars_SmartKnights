@@ -9,7 +9,7 @@ namespace HamsterWars.Client.Services.HamsterService;
 public class HamsterService : IHamsterService
 {
     private readonly HttpClient _http;
- 
+    private NavigationManager _navigationManager;
 
     public HamsterService(HttpClient http)
     {
@@ -20,10 +20,11 @@ public class HamsterService : IHamsterService
     public List<Hamster> Hamsters { get; set; } = new List<Hamster>();
 
 
+
     public async Task<Hamster> CreateNewHamster(Hamster hamster)
     {
         var hamsterJson = new StringContent(JsonSerializer.Serialize(hamster), Encoding.UTF8, "application/json");
-        var response = await _http.PostAsync("matches", hamsterJson);
+        var response = await _http.PostAsync("api/Hamsters", hamsterJson);
         if (response.IsSuccessStatusCode)
         {
             return await JsonSerializer.DeserializeAsync<Hamster>(await response.Content.ReadAsStreamAsync());
@@ -33,12 +34,12 @@ public class HamsterService : IHamsterService
 
     public async Task DeleteHamster(int id)
     {
-        await _http.DeleteAsync($"matches/{id}");
+        await _http.DeleteAsync($"api/Hamsters/{id}");
     }
 
     public async Task<Hamster> GetSingleHamster(int id)
     {
-        var result = await _http.GetFromJsonAsync<Hamster>($"matches/{id}");
+        var result = await _http.GetFromJsonAsync<Hamster>($"api/Hamsters/{id}");
         if (result != null)
             return result;
         throw new Exception("No hamster found");
@@ -46,7 +47,7 @@ public class HamsterService : IHamsterService
     }   
     public async Task<Hamster> GetRandomHamster()
     {
-        var result = await _http.GetFromJsonAsync<Hamster>($"matches/random");
+        var result = await _http.GetFromJsonAsync<Hamster>($"api/Hamsters/random");
         if (result != null)
             return result;
         throw new Exception("No hamster found");
@@ -54,7 +55,7 @@ public class HamsterService : IHamsterService
 
     public async Task GetHamsters()
     {
-        var results = await _http.GetFromJsonAsync<List<Hamster>>("matches");
+        var results = await _http.GetFromJsonAsync<List<Hamster>>("api/Hamsters");
         if (results != null)
         {
             Hamsters = results;
@@ -63,29 +64,9 @@ public class HamsterService : IHamsterService
 
     public async Task UpdateHamster(Hamster hamster)
     {
-        var result = await _http.PutAsJsonAsync($"matches/{hamster.Id}", hamster);
+        var result = await _http.PutAsJsonAsync($"api/Hamsters/{hamster.Id}", hamster);
         var response = await result.Content.ReadFromJsonAsync<List<Hamster>>();
         Hamsters = response;
         
-    }
-
-    public async Task<List<Hamster>> GetTop5Winners()
-    {
-        var topWinners = await _http.GetFromJsonAsync<List<Hamster>>("matches/winners");
-        if(topWinners != null)
-        {
-            return topWinners;
-        }
-        return null;
-    }
-
-    public async Task<List<Hamster>> GetTop5Losers()
-    {
-        var topLosers = await _http.GetFromJsonAsync<List<Hamster>>("matches/losers");
-        if (topLosers != null)
-        {
-            return topLosers;
-        }
-        return null;
     }
 }

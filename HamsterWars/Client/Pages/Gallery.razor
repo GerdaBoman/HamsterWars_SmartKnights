@@ -1,15 +1,20 @@
 ﻿@page "/gallery"
 @using HamsterWars.Shared.Entity
-@inject IHamsterService hamsterService
-@inject NavigationManager navigationManager
+@inject IHamsterService HamsterService
+@inject NavigationManager NavigationManager
 
+<head>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Raleway&display=swap" rel="stylesheet">
+</head>
 
 <h2 class="gallery">Gallery</h2>
 <div class="d-flex justify-content-center">
     <button type="button" class="btn btn-primary createNewBtn" onclick="@CreateHamster">Create new hamster!</button>
 </div>
 
-@if (this.hamsterService.Hamsters.Count == 0)
+@if (this.HamsterService.Hamsters.Count == 0)
   {
     <div class="e-error">
        <div class="e-error-content">No hamster found in the database.Try to add some Hamsters!</div>
@@ -18,7 +23,7 @@
 else
 {
     <div class="row row-cols-1 row-cols-lg-3 g-4">
-    @foreach (var card in hamsterService.Hamsters)
+    @foreach (var card in HamsterService.Hamsters)
     {
         <div class="col">
         <div id="f1_container">
@@ -53,4 +58,43 @@ else
   
 }
 
+@code {
 
+
+    protected override async Task OnInitializedAsync()
+    {
+        await HamsterService.GetHamsters();
+    }
+
+    void CreateHamster()
+    {
+        NavigationManager.NavigateTo($"hamster");
+    }
+
+
+    protected async Task DeleteHamster(int id) { 
+        await DeleteImage(id);
+        await HamsterService.DeleteHamster(id);
+        await HamsterService.GetHamsters();
+
+    } 
+
+    async Task DeleteImage(int id)
+    {
+        var hamster = await HamsterService.GetSingleHamster(id);
+        string imgName = hamster.ImgName.ToString();
+        string filePath = "~\\Client\\wwwroot\\images\\hamsterImg\\" + imgName;
+
+        FileInfo file = new(filePath);
+        if (file.Exists)
+        {
+            file.Delete();
+        }
+
+
+
+    }
+
+    
+
+}

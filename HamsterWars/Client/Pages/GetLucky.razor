@@ -1,0 +1,79 @@
+﻿@page "/getlucky"
+@using HamsterWars.Shared.Entity
+@inject IHamsterService hamsterService
+
+<div class="text-center">
+    <h3>Random Hamster Picker</h3>
+    <a class="btn btn-primary" @onclick=@PickNewHamster>Shuffle</a>
+</div>
+@if (counter <= 0)
+{
+    <h3 class="text-center">Shuffle to try out your luck!</h3>
+    <h3 class="text-center">Testing git sync with azure</h3>
+}
+else
+{
+    <div class="container">
+        <div class="flip-card">
+            <div class="flip-card-inner">
+                <div class="flip-card-front">
+                    <img src="images/hamsterImg/@newHamster.ImgName" id="imgTag">
+                </div>
+                <div class="flip-card-back">
+                    <h3 class="card-title">@newHamster.Name</h3>
+                    <p class="card-text">
+                        Age: @newHamster.Age
+                        <br /> Favorite food: @newHamster.FavFood
+                        <br /> Loves: @newHamster.Loves
+                        <br /> Wins: @newHamster.Wins
+                        <br /> Losses: @newHamster.Losses
+                        <br /> Total Games: @newHamster.Games
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+}
+
+<style>
+    .flip-card {
+        border: 1px;
+        border-radius: 5%;
+        justify-content: center;
+    }
+
+    #imgTag {
+        width: 300px;
+        height: 300px;
+        border-radius: 5%;
+    }
+
+    .flip-card-back {
+        border: 1px grey;
+        border-radius: 5%;
+        box-shadow: 0px 5px 15px 0px black;
+    }
+
+    .flip-card-front {
+        border: 1px grey;
+        border-radius: 5%;
+        box-shadow: 0px 5px 15px 0px black;
+    }
+
+    .container {
+        display: grid;
+        place-items: center
+    }
+</style>
+@code {
+    Hamster newHamster = new Hamster();
+    private int counter;
+
+    private async Task PickNewHamster()
+    {
+        newHamster = await hamsterService.GetRandomHamster();
+        counter++;
+    }
+}

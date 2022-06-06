@@ -12,7 +12,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\FrontEndLogic\FrontEndLogic.csproj" />
     <ProjectReference Include="..\Shared\HamsterWars.Shared.csproj" />
   </ItemGroup>
 
