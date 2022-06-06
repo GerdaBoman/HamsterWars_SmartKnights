@@ -80,7 +80,6 @@ public class HamsterRepository : IHamsterRepository
         return null;
     }
 
-
     public async Task<IEnumerable<Hamster>> GetTop5Losers()
     {
         var hamsterList = await _context.Hamster.ToListAsync();
