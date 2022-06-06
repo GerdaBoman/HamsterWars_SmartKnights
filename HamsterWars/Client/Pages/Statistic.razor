@@ -1,0 +1,109 @@
+﻿@page "/stats"
+@using FrontEndLogic
+@using HamsterWars.Shared.Entity
+@inject IHamsterService hamsterService
+
+<PageTitle>Statistic</PageTitle>
+
+<div class="StatisticsInrto">
+    <h1 class="statsTitle text-center">Some fun data to look at.... </h1>
+</div>
+<div class="statisticContainer">
+    <div class="row">
+        <div class="col">
+            <h4 class="statisticHeader">Top 5 Winners</h4>
+        </div>
+        <div class="col">
+            <h4 class="statisticHeader">Top 5 Loser</h4>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col">
+            @foreach(var winner in top5Winners)
+            {
+                 
+                    <div id="f1_container">
+                        <div id="f1_card" class="shadow">
+                            <div class="front face" style="background-image:url(images/hamsterImg/@winner.ImgName)">
+                            <h4 class=""> </h4>
+                            </div>
+                         <div class="back face center">
+                            <h4 class="card-title">@winner.Name</h4>
+                                <p class="card-text">Age: @winner.Age
+                                  <br /> Favorite food: @winner.FavFood
+                                  <br /> Loves: @winner.Loves
+                                  <br /> Wins: @winner.Wins
+                                  <br /> Losses: @winner.Losses
+                                  <br /> Total Games: @winner.Games
+                                  </p>
+                                  <h2 class="rateResult"> Win Rate: @procentage.WinPercentage(winner) % </h2>
+                                 
+           
+                        </div>
+                     </div>
+                   </div>
+
+            }
+        </div>
+        <div class="col">
+            @foreach(var loser in top5Losers)
+            {
+                <div id="f1_container">
+                <div id="f1_card" class="shadow">
+                <div class="front face" style="background-image:url(images/hamsterImg/@loser.ImgName)">
+                    
+                </div>
+                <div class="back face center">
+                <h4 class="card-title">@loser.Name</h4>
+                 <p class="card-text">Age: @loser.Age
+                     <br /> Favorite food: @loser.FavFood
+                     <br /> Loves: @loser.Loves
+                     <br /> Wins: @loser.Wins
+                     <br /> Losses: @loser.Losses
+                     <br /> Total Games: @loser.Games
+                 </p>
+                     <h2 class="rateResult"> Loss Rate: @procentage.LossPercentage(loser) % </h2>
+                
+           
+                </div>
+            </div>
+        </div>
+            }
+        </div>
+    </div>
+</div>
+
+@code {
+    Procentage procentage = new();
+
+    List<Hamster> top5Winners = new();
+    List<Hamster> top5Losers = new();
+    
+
+    protected override async Task OnInitializedAsync()
+    {
+        top5Winners=  await hamsterService.GetTop5Winners();
+        top5Losers  = await hamsterService.GetTop5Losers();
+        SortLists();
+
+    }
+
+    void SortLists()
+    {
+        top5Winners.Sort(delegate (Hamster x, Hamster y)
+        {
+            return (y.Wins/y.Games).CompareTo(x.Wins/x.Games);
+
+        });
+    
+        top5Losers.Sort(delegate (Hamster x, Hamster y)
+        {
+            return (y.Losses/y.Games).CompareTo(x.Losses/x.Games);
+
+        });
+    }
+
+   
+
+}

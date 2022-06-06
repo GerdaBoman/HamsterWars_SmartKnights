@@ -4,15 +4,11 @@
 @inject IHamsterService HamsterService
 @inject HttpClient http
 
-    <PageTitle>Create a new hamster</PageTitle>
     
-    <head>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Raleway&display=swap" rel="stylesheet">
-</head>
 
+    <PageTitle>Create a new hamster</PageTitle>
     <h3 class="formTitle">Add new hamster</h3>
+
 
     <div class = "createHamsterForm d-flex justify-content-center mx-auto">
 
@@ -36,7 +32,7 @@
                     <div class="form-group">  
                         <label for="loves">Loves: </label>  
                         <InputText id="loves" class="form-control" @bind-Value="@hamster.Loves" placeholder="Enter what hamster loves"></InputText>  
-                    </div
+                    </div>
                     
                     <div class="form-group">
                         <label for="imgName">Image: </label>
@@ -62,7 +58,7 @@
                     }
                      
                   <div class="endFormButtons">
-                        <button type="submit" class="btn btn-primary createBtn">Add new hamster</button>
+                        <button type="submit" class="btn btn-primary createBtn">Add @hamster.Name hamster</button>
                    </div>
                    @if (success)
                      {
@@ -77,61 +73,4 @@
 
 
 
-@code {
 
-        Hamster hamster = new();    
-        string btnText = string.Empty;
-
-
-        List<ImageFile> image = new List<ImageFile>();
-
-        bool success = false;
-        bool failure = true;
-        private int maxImg = 1;
-
-
-    async Task HandleValidSubmit()
-    {
-
-        success = true;
-        failure = false;
-
-        Upload();
-        await HamsterService.CreateNewHamster(hamster);
-
-    }
-
-    async Task HandleInvalidSubmit()
-    {
-        failure = true;
-        success = false;
-
-    }
-
-
-    async Task OnChange(InputFileChangeEventArgs e)
-    {
-        var files = e.GetMultipleFiles(); // get the files selected by the users
-        foreach(var file in files)
-        {
-           
-            var resizedFile = await file.RequestImageFileAsync(file.ContentType, 640, 480); // resize the image file
-            var buf = new byte[resizedFile.Size]; // allocate a buffer to fill with the file's data
-            using (var stream = resizedFile.OpenReadStream())
-            {
-                await stream.ReadAsync(buf); // copy the stream to the buffer
-            }
-            image.Add(new ImageFile { base64data = Convert.ToBase64String(buf), contentType = file.ContentType, FileName = file.Name }); // convert to a base64 string!!
-            hamster.ImgName = file.Name;
-        }
-		
-	}
-
-    async Task Upload()
-	{
-		
-		await http.PostAsJsonAsync<List<ImageFile>>("/api/upload", image, System.Threading.CancellationToken.None);
-		
-	}
-    
-}
