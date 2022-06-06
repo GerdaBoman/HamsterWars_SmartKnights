@@ -11,7 +11,7 @@ using HamsterWars.Server.Interface;
 
 namespace HamsterWars.Server.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("matches")]
     [ApiController]
     public class HamstersController : ControllerBase
     {
@@ -22,7 +22,7 @@ namespace HamsterWars.Server.Controllers
             _hamsterRepository = hamsterRepository;
         }
 
-        // GET: api/Hamsters
+        // GET: matches
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Hamster>>> GetHamster()
         {
@@ -37,7 +37,7 @@ namespace HamsterWars.Server.Controllers
             }
         }
 
-        // GET: api/Hamsters/5
+        // GET: matches/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Hamster>> GetHamster(int id)
         {
@@ -54,7 +54,7 @@ namespace HamsterWars.Server.Controllers
             }
         }
 
-        // GET: api/Hamsters/random
+        // GET: matches/random
         [HttpGet("random")]
        
         public async Task<ActionResult<Hamster>> GetHamsterRandom()
@@ -72,7 +72,7 @@ namespace HamsterWars.Server.Controllers
             }
         }
 
-        // PUT: api/Hamsters/5
+        // PUT: matches/5
         [HttpPut("{id}")]
         public async Task<ActionResult<Hamster>> UpdateHamster(int id, Hamster hamster)
         {
@@ -100,8 +100,8 @@ namespace HamsterWars.Server.Controllers
             }
         }
 
-        // POST: api/Hamsters
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        // POST: matches
+    
         [HttpPost]
         public async Task<ActionResult<Hamster>> CreateHamster(Hamster hamster)
         {
@@ -122,7 +122,7 @@ namespace HamsterWars.Server.Controllers
             }
         }
 
-        // DELETE: api/Hamsters/5
+        // DELETE: matches/5
         [HttpDelete("{id}")]
         public async Task<ActionResult<Hamster>> DeleteHamster(int id)
         {
@@ -144,6 +144,27 @@ namespace HamsterWars.Server.Controllers
             }
         }
 
-       
+
+        [HttpGet("losers")]
+     
+        public async Task<IEnumerable<Hamster>> GetTo5Losers()
+        {
+            var hamsterList = await _hamsterRepository.GetTop5Losers();
+            var losers = hamsterList.OrderByDescending(h => h.Losses/h.Games)
+                                                   .Take(5).ToList();
+            return losers;
+        }
+
+        [HttpGet("winners")]
+
+        public async Task<IEnumerable<Hamster>> GetTo5Winners()
+        {
+            var hamsterList = await _hamsterRepository.GetTop5Winners();
+            var winners = hamsterList.OrderByDescending(h => h.Wins/h.Games)
+                                                   .Take(5).ToList();
+            return winners;
+        }
+
+
     }
 }

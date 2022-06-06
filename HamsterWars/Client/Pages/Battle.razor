@@ -1,12 +1,11 @@
 ﻿@page "/battle"
 @using HamsterWars.Shared.Entity
+@using FrontEndLogic
 @inject IHamsterService hamsterService
 
-<head>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Raleway&display=swap" rel="stylesheet">
-</head>
+
+
+
 
 <div class="battleTop">
     <h1 class="welcomeMessage">Which one is cuter?!</h1>
@@ -53,7 +52,7 @@
     <div class="results">
         <div class="result-title">
             <h1 class="welcomeMessage"> Previous battle: </h1>
-            <h3 class="subTextWelcome"> @GetPercentage(winnerHamster)% of people agree with you that @winnerHamster.Name is cuter than @loserHamster.Name</h3>
+            <h3 class="subTextWelcome"> @procentage.WinPercentage(winnerHamster)% of people agree that @winnerHamster.Name is cuter than @loserHamster.Name</h3>
         </div>
 
      <div class="row">
@@ -104,100 +103,4 @@ else
 }
 
 
-@code {
-    Hamster firstHamster = new();
-    Hamster secondHamster = new();
 
-
-    Hamster winnerHamster = new();
-    Hamster loserHamster = new();
-
-    bool result = false;
-    int win = 1;
-    int lost = 1;
-    int game = 1;
-
-    double GetPercentage(Hamster hamster)
-    {
-        double wins = Convert.ToDouble(hamster.Wins);
-        double totalGames = Convert.ToDouble(hamster.Games);
-
-        double percentage = Math.Round(((wins / totalGames) * 100), 2);
-
-        return percentage;
-    }
-
-    protected override async Task OnInitializedAsync()
-    {
-        firstHamster = await hamsterService.GetRandomHamster();
-        secondHamster = await hamsterService.GetRandomHamster();
-        CheckForDublicateHamster(firstHamster, secondHamster);
-    }
-    void ChosenWinner(int id)
-    {
-        if(id == firstHamster.Id)
-        {
-            firstHamster.Wins = firstHamster.Wins + win;
-            secondHamster.Losses = secondHamster.Losses + lost;
-            firstHamster.Games = firstHamster.Games + game;
-            secondHamster.Games= secondHamster.Games + game;
-
-
-            UpdateHamster(firstHamster);
-            UpdateHamster(secondHamster);
-
-            winnerHamster = firstHamster;
-            loserHamster = secondHamster;
-            double winnerStatistics = GetPercentage(winnerHamster);
-
-            NewBattle();
-            result = true;
-
-        }
-        else
-        {
-            secondHamster.Wins = secondHamster.Wins + win;
-            firstHamster.Losses = firstHamster.Losses + lost;
-            firstHamster.Games = firstHamster.Games + game;
-            secondHamster.Games= secondHamster.Games + game;
-
-            UpdateHamster(firstHamster);
-            UpdateHamster(secondHamster);
-
-            winnerHamster = secondHamster;
-            loserHamster = firstHamster;
-
-            double winnerStatistics = GetPercentage(winnerHamster);
-
-            NewBattle();
-            result = true;
-
-
-        }
-
-    }
-
-    async Task UpdateHamster(Hamster hamster)
-    {
-        await hamsterService.UpdateHamster(hamster);
-    }
-
-    async Task NewBattle()
-    {
-        firstHamster = await hamsterService.GetRandomHamster();
-        secondHamster = await hamsterService.GetRandomHamster();
-        CheckForDublicateHamster(firstHamster, secondHamster);
-        StateHasChanged();
-    }
-
-     async Task CheckForDublicateHamster (Hamster firstH, Hamster secondH)
-    {
-        while(firstH.Id == secondH.Id)
-        {
-            secondHamster = await hamsterService.GetRandomHamster();
-        }
-    }
-
-
-
-}

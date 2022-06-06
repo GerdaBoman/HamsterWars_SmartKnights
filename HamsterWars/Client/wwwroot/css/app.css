@@ -196,3 +196,64 @@ a, .btn-link {
     margin-bottom:30px;
 }
 
+.starIntro {
+    font-family: 'Pacifico', cursive;
+    font-size:60px;
+}
+
+.starName {
+    font-family: 'Pacifico', cursive;
+}
+
+.statsTitle {
+    font-family: 'Pacifico', cursive;
+}
+
+.statisticHeader{
+    text-align:center;
+}
+
+.statisticContainer{
+    background-color:white;
+    margin-top:50px;
+}
+.deleteContainer {
+    margin: 60px;
+}
+
+.deleteIntro {
+    font-family: 'Pacifico', cursive;
+    padding-bottom:40px;
+    text-align:center;
+}
+
+
+.photo {
+    max-width: 500px;
+    height: 500px;
+    border: 15px solid white;
+    -webkit-box-shadow: -11px 15px 15px 4px #FF54F5;
+    box-shadow: -11px 15px 15px 4px #FF54F5;
+   
+}
+
+.infoContainer {
+    width:400px;
+    height:auto;
+    text-align: center;
+    background-color: white;
+}
+
+.HamsterView {
+    margin-top: 50px;
+    display: flex;
+    justify-content: center;
+}
+
+.randomButton{
+    margin-top:50px;
+}
+
+.rateResult{
+    font-weight: 700;
+}

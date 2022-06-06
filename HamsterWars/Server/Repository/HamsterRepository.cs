@@ -78,6 +78,24 @@ public class HamsterRepository : IHamsterRepository
             return result;
         }
         return null;
-    }   
+    }
+
+
+    public async Task<IEnumerable<Hamster>> GetTop5Losers()
+    {
+        var hamsterList = await _context.Hamster.ToListAsync();
+        var losers = hamsterList.OrderByDescending(h => h.Losses)
+                                               .Take(5).ToList();
+        return losers;
+    }
+
+   
+    public async Task<IEnumerable<Hamster>> GetTop5Winners()
+    {
+        var hamsterList = await _context.Hamster.ToListAsync();
+        var winners = hamsterList.OrderByDescending(h => h.Wins)
+                                               .Take(5).ToList();
+        return winners;
+    }
 }
 
