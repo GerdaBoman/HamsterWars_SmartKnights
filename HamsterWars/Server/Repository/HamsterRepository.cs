@@ -88,7 +88,7 @@ public class HamsterRepository : IHamsterRepository
         return losers;
     }
 
-   
+ 
     public async Task<IEnumerable<Hamster>> GetTop5Winners()
     {
         var hamsterList = await _context.Hamster.ToListAsync();
