@@ -29,7 +29,6 @@ public partial class HamsterForm
 
     }
 
-  
 
     async Task OnChange(InputFileChangeEventArgs e)
     {
@@ -48,6 +47,6 @@ public partial class HamsterForm
 
     async Task Upload()
     {
-        await http.PostAsJsonAsync<List<ImageFile>>("/api/upload", image, System.Threading.CancellationToken.None);
+        await http.PostAsJsonAsync<List<ImageFile>>("/upload/upload", image, System.Threading.CancellationToken.None);
     }
 }

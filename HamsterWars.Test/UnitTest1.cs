@@ -8,8 +8,7 @@ namespace HamsterWars.Test
         [Fact]
         public void GetHamsters_Return_Correct_Number_O_hamsters()
         {
-            //Arrange
-            //Act
+            //Arrange            //Act
             //Assert
 
         }
