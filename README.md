@@ -41,7 +41,7 @@ Utöver det har vi gjort två extra sidor som vi har döpt till "Lucky Star" och
 <br>
 När man går till den sida, kommer det att slumpa fram en hamster automatisk. Den sidan visar en hamsters bild med lite information av den. Om man vill kan man också radera den hamstern från den sida. Syftet med sida att träffa olika hamstrar mer individuell. Om man trycka på "Meet another Star" knappen, kommer få en annan hamster som man kan läsa om. 
 
-<em>Statistik:</em>
+<em>Statistik (VG):</em>
 <br>
 När man går på den sida kan man direkt se de Top 5 vinnare på vänster sida och de Top 5 som har förlorad mest. Om man hoover musen över bilden kan man se hamsters information med lite extra info av vinstfrekvens/förlustfrekvens. 
 
