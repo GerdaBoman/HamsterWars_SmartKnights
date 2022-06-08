@@ -11,9 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HamsterWars.Shared", "Hamst
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataAccess", "DataAccess\DataAccess.csproj", "{894D6734-88B5-4B75-800D-01F3B1D25FCE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HamsterWars.Test", "HamsterWars.Test\HamsterWars.Test.csproj", "{B110E5AD-ABAF-4A66-B307-76034553DBB8}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FrontEndLogic", "FrontEndLogic\FrontEndLogic.csproj", "{81E8888C-780D-4D0E-9349-CED743CD7CC5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FrontEndLogic", "FrontEndLogic\FrontEndLogic.csproj", "{81E8888C-780D-4D0E-9349-CED743CD7CC5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -37,10 +35,6 @@ Global
 		{894D6734-88B5-4B75-800D-01F3B1D25FCE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{894D6734-88B5-4B75-800D-01F3B1D25FCE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{894D6734-88B5-4B75-800D-01F3B1D25FCE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B110E5AD-ABAF-4A66-B307-76034553DBB8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B110E5AD-ABAF-4A66-B307-76034553DBB8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B110E5AD-ABAF-4A66-B307-76034553DBB8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B110E5AD-ABAF-4A66-B307-76034553DBB8}.Release|Any CPU.Build.0 = Release|Any CPU
 		{81E8888C-780D-4D0E-9349-CED743CD7CC5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{81E8888C-780D-4D0E-9349-CED743CD7CC5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{81E8888C-780D-4D0E-9349-CED743CD7CC5}.Release|Any CPU.ActiveCfg = Release|Any CPU

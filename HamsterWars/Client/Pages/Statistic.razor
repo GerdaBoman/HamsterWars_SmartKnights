@@ -79,7 +79,9 @@
 
     List<Hamster> top5Winners = new();
     List<Hamster> top5Losers = new();
-    
+
+
+
 
     protected override async Task OnInitializedAsync()
     {
@@ -91,17 +93,11 @@
 
     void SortLists()
     {
-        top5Winners.Sort(delegate (Hamster x, Hamster y)
-        {
-            return (y.Wins/y.Games).CompareTo(x.Wins/x.Games);
 
-        });
-    
-        top5Losers.Sort(delegate (Hamster x, Hamster y)
-        {
-            return (y.Losses/y.Games).CompareTo(x.Losses/x.Games);
+        top5Winners = top5Winners.OrderBy(x => ((x.Wins / x.Games) * 100)).ToList();
 
-        });
+        top5Losers = top5Losers.OrderBy(x => ((x.Losses / x.Games) * 100)).ToList();
+
     }
 
    
