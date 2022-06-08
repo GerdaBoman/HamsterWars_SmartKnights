@@ -67,8 +67,17 @@ I skrivande stund har vi gjort alla kriterier för godkänd nivå.
 <br>
 <br><strong>Instruktioner för att börja programmet:</strong>
 <br>
-- Om man vill köra programmet på azure, gäller det bara att trycka på länken https://hamsterwarsservice.azurewebsites.net/
-- Om man vill köra programmet local, behöver man dubbel kolla "appsettings.json" filen så att Connection sträng börjar med <strong>(localhost)\MSSQLLocalDb.>/strong> Om man har dators inställningar som inte börja med det, behöver man ändra så att det matcha egen system inställningar. Om allt stämmer, gället det att sätta HamsterWars.Server projekt som start upp projekt och kör programmet.
+<strong>OBS! Local versionen är mest uppdaterad!</strong>
+
+<em>Instruktioner för att börja programmet:</em>
+<br>
+- Om man vill köra programmet på azure, gäller det bara att trycka på länken https://hamsterwarsservice.azurewebsites.net/ 
+<br>
+- Om man vill köra programmet local, behöver man dubbel kolla att datorns sql server börjar med  (localhost)\MSSQLLocalDb, så att det stämmer överens med vad det står i "appsettings.json" filen på HamsterWars.Server projectet. 
+
+Om man har dators sql inställningar som inte börja med det, behöver man ändra appsettings.json så att det matcha egen system inställningar. Om allt stämmer, gäller det bara att sätta HamsterWars.Server projekt som start upp projekt och kör programmet.
+
+
     
     
    <br> <strong>Extra info om Azure</strong>
