@@ -33,8 +33,14 @@ Frontend:
     - Galleri, Visar alla hamstrar och deras information, ex namn, ålder mm. Man ska kunna lägga till ny hamster och även ta bort
 
 I skrivande stund har vi uppfyltt godkänt nivå för både backend och frontend, alltså de speciella kraven för backend och frontend.
-Utöver det har vi gjort en extra sida som vi har döpt till Get Lucky. Sidan är för att testa sin tur genom att slumpa fram en
-hamster med hjälp av en knapp (shuffle). Det som avgör om du har tur eller inte är antal vinster hamstern har.
+Utöver det har vi gjort en extra sida som vi har döpt till Get Lucky.
+
+GetLucky:
+Sidan är för att testa sin tur eller att utmana sig själv genom att slumpa fram en
+hamster med hjälp av en knapp (shuffle). Efter knappen tryckes får man en hamster upp och när man håller musen över
+hamstret kan man se lite info om hamstern precis som gallary sidan.
+Det som avgör om du har tur eller inte är antal vinster hamstern har. Efter det är det bara framåt, ju mer vinster en hamster
+har desto bättre tur har man.
 
 Krav för godkänd vid inlämning:
 - Entity Framework och SQL Server ska användas
@@ -45,7 +51,4 @@ Krav för godkänd vid inlämning:
 - Separata klassbibliotek (.dll)för dataåtkomst. Entity Framwork ORM ska användas och SQL Server ska vara databasen.
 - Korrekt inlämmning med zip-fil, länk till repot
 
-I skrivande stund har vi gjort alla kriterier för godkänd nivå förutom
-    - API ska vara publicerat online på Microsoft Azure
-    - Korrekt inlämning med zip-fil, länk till repot
-----------------------------------MORE TO DO-------------------------------------------
+I skrivande stund har vi gjort alla kriterier för godkänd nivå och det som återsår är att lämna in projektet.
