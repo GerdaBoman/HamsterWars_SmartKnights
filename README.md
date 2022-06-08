@@ -85,7 +85,5 @@ Om man har dators sql inställningar som inte börja med det, behöver man ändr
     -Azure har inte den mest uppdaterad versionen av web appen på grund att jag(Gerda) har överstigit git limit.
     ![image](https://user-images.githubusercontent.com/88060352/172673353-a57147dd-2221-426a-80a0-b312bfaab074.png)
     ![image](https://user-images.githubusercontent.com/88060352/172712836-b002db4e-e218-4148-a9f8-2da67f300013.png)
-
-    <br>
-    På grund av det, om man försöker lägga till nya hamster, kommer det göra, men bilden kommer inte visas på grund att det är inte sparras i blob storage. Eftersom jag har överstigit den limiten kunde jag inte testa olika möjligheten så att det funkar. 
+<br>På grund av det, om man försöker lägga till nya hamster, kommer det göra, men bilden kommer inte visas på grund att det är inte sparras i blob storage. Eftersom jag har överstigit den limiten kunde jag inte testa olika möjligheten så att det funkar. 
 
